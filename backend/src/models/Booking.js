@@ -1,19 +1,21 @@
 const mongoose = require('mongoose');
 
 const BookingSchema = new mongoose.Schema({
-  date: Date,
+  date: String,
+  hour: String,
   duration: Number,
   tech: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'TechSchema'
+    ref: 'Tech',
+    required: true
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'UserSchema'
+    ref: 'User'
   },
   mentor: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'MentorSchema'
+    ref: 'Mentor'
   },
   status: {
     type: String,
