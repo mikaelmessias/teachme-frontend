@@ -10,4 +10,6 @@ routes.post('/techs', TechController.store);
 
 routes.post('/users', UserController.store);
 
+routes.post('/mentors', UserController.store);
+
 module.exports = routes;
