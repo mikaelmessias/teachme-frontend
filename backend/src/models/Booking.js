@@ -6,8 +6,7 @@ const BookingSchema = new mongoose.Schema({
   duration: Number,
   tech: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Tech',
-    required: true
+    ref: 'Tech'
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,

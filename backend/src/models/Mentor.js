@@ -12,8 +12,7 @@ const MentorSchema = new mongoose.Schema({
   skills: [{
     tech: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Tech',
-      required: true
+      ref: 'Tech'
     },
     price: Number    
   }],
