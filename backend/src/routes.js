@@ -8,4 +8,6 @@ const routes = express.Router();
 
 routes.post('/techs', TechController.store);
 
+routes.post('/users', UserController.store);
+
 module.exports = routes;
