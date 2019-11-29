@@ -11,6 +11,7 @@ const BookingController = require('./controllers/BookingController');
 const routes = express.Router();
 const upload = multer(thumbUploadConfig);
 
+routes.get('/techs', TechController.index);
 routes.post('/techs', upload.single('thumbnail'), TechController.store);
 
 routes.post('/users', UserController.store);
