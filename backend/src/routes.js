@@ -18,6 +18,6 @@ routes.post('/users', UserController.store);
 
 routes.post('/mentors', MentorController.store);
 
-routes.post('/bookings', BookingController.store);
+routes.post('/mentors/:mentor_id/bookings', BookingController.store);
 
 module.exports = routes;
