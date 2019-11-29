@@ -11,6 +11,7 @@ module.exports = {
     const { description } = req.body;
     const { skills } = req.body;
     const { availableOn } = req.body;
+    const { avatar } = req.body;
 
     let mentor = await Mentor.findOne({ email });
 
@@ -24,7 +25,8 @@ module.exports = {
         password,
         description,
         skills,
-        availableOn
+        availableOn,
+        avatar
       }); 
     }
 

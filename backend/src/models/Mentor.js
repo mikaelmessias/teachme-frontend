@@ -28,7 +28,8 @@ const MentorSchema = new mongoose.Schema({
       'SATURDAY',
       'SUNDAY'
     ]
-  }]
+  }],
+  avatar: String
 });
 
 module.exports = mongoose.model('Mentor', MentorSchema);

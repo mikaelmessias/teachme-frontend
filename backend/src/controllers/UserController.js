@@ -9,6 +9,7 @@ module.exports = {
     const { email } = req.body;
     const { password } = req.body;
     const { description } = req.body;
+    const { avatar } = req.body;
 
     let user = await User.findOne({ email });
 
@@ -20,7 +21,8 @@ module.exports = {
         cpf,
         email,
         password,
-        description
+        description,
+        avatar
       })
     }
 
