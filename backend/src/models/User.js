@@ -8,7 +8,15 @@ const UserSchema = new mongoose.Schema({
   email: String,
   password: String,
   description: String,
-  avatar: String
+  avatar: String,
+  access: {
+    type: String,
+    enum: [
+      'PADAWAN',
+      'MENTOR'
+    ],
+    default: 'PADAWAN'
+  }
 });
 
 module.exports = mongoose.model('User', UserSchema);
