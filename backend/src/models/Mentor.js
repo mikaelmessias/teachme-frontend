@@ -2,13 +2,11 @@ const mongoose = require('mongoose');
 const Tech = require('./Tech');
 
 const MentorSchema = new mongoose.Schema({
-  name: String,
-  birthdate: Date,
-  address: String,
-  cpf: Number,
-  email: String,
-  password: String,
-  description: String,
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
   skills: [{
     tech: {
       type: mongoose.Schema.Types.ObjectId,
@@ -16,7 +14,7 @@ const MentorSchema = new mongoose.Schema({
     },
     price: Number    
   }],
-  availableOn: [{
+  availableAt: [{
     type: String,
     enum: [
       'MONDAY',
@@ -27,8 +25,7 @@ const MentorSchema = new mongoose.Schema({
       'SATURDAY',
       'SUNDAY'
     ]
-  }],
-  avatar: String
+  }]
 });
 
 module.exports = mongoose.model('Mentor', MentorSchema);
