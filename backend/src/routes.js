@@ -1,5 +1,8 @@
 const express = require('express');
 const multer = require('multer');
+
+const authMiddleware = require('./middlewares/auth');
+
 const thumbUploadConfig = require('./config/thumbUploadConfig');
 const avatarUploadConfig = require('./config/avatarUploadConfig');
 
@@ -19,6 +22,12 @@ routes.post('/techs', thumbUpload.single('thumbnail'), TechController.store);
 routes.post('/users', avatarUpload.single('avatar'), UserController.store);
 
 routes.post('/mentors', avatarUpload.single('avatar'), MentorController.store);
+
+routes.post('/users/authenticate', UserController.authenticate);
+
+routes.use(authMiddleware);
+
+routes.post('/dashboard', UserController.dashboard);
 
 routes.post('/mentors/:mentor_id/bookings', BookingController.store);
 
