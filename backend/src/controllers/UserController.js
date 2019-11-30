@@ -11,8 +11,7 @@ module.exports = {
       user = await User.create({
         ...req.body,
         avatar: filename
-      }
-      );
+      });
     }
 
     return res.json(user);

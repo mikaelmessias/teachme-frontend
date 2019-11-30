@@ -18,7 +18,7 @@ routes.post('/techs', thumbUpload.single('thumbnail'), TechController.store);
 
 routes.post('/users', avatarUpload.single('avatar'), UserController.store);
 
-routes.post('/mentors', MentorController.store);
+routes.post('/mentors', avatarUpload.single('avatar'), MentorController.store);
 
 routes.post('/mentors/:mentor_id/bookings', BookingController.store);
 

@@ -1,34 +1,40 @@
 const Mentor = require('../models/Mentor');
+const User = require('../models/User');
 
 module.exports = {
   async store(req, res) {
-    const { name } = req.body;
-    const { birthdate } = req.body;
-    const { address } = req.body;
-    const { cpf } = req.body;
     const { email } = req.body;
-    const { password } = req.body;
-    const { description } = req.body;
-    const { skills } = req.body;
-    const { availableOn } = req.body;
-    const { avatar } = req.body;
+    const { filename } = req.file;
 
-    let mentor = await Mentor.findOne({ email });
+    let user = await User.findOne({ email });
+    let mentor;
 
-    if(!mentor) {
-      mentor = await Mentor.create({
-        name,
-        birthdate,
-        address,
-        cpf,
-        email,
-        password,
-        description,
-        skills,
-        availableOn,
-        avatar
-      }); 
+    if(user) {
+      mentor = await Mentor.findOne({ user_id: user._id });
     }
+    else {
+      user = await User.create({
+        ...req.body,
+        access: "MENTOR",
+        avatar: filename
+      });
+
+      let availableAt = req.body.availableOn.split(',');
+      let skills = req.body.skills.split(';').map(
+        info => ({
+          tech: info.split(',')[0],
+          price: info.split(',')[1]
+        })
+      )
+
+      mentor = await Mentor.create({
+        user_id: user._id,
+        skills,
+        availableAt
+      });
+    }
+
+    await mentor.populate('user_id').populate('skills.tech').execPopulate();
 
     return res.json(mentor);
   } 
