@@ -8,17 +8,23 @@ module.exports = {
     const { decoded } = req;    
 
     if(!await User.findById(decoded.id)) {
-      return res.status(404).json({ error: 'User does not exists' });
+      return res.status(404).json({
+        error: 'User does not exists'
+      });
     }
 
-    const mentor = await Mentor.findById(req.params.mentor);
+    const mentor = await Mentor.findById(req.body.mentor);
 
     if(!mentor) {
-      return res.status(404).json({ error: 'Mentor does not exists '});
+      return res.status(404).json({
+        error: 'Mentor does not exists'
+      });
     }
 
     if(!await Tech.findById(req.body.tech)) {
-      return res.status(404).json({ error: 'Tech does not exists '});
+      return res.status(404).json({
+        error: 'Tech does not exists'
+      });
     }
 
     const { date, hour } = req.body
@@ -39,5 +45,29 @@ module.exports = {
     await booking.populate('mentor.user_id').execPopulate()
 
     return res.json(booking);
+  },
+
+  async destroy(req, res) {
+    const { decoded } = req;
+
+    if(!await User.findById(decoded.id)) {
+      return res.status(404).json({
+        error: "User does not exists"
+      })
+    }
+
+    const booking = await Booking.findByIdAndDelete(req.params.booking);
+
+    if(!booking) {
+      return res.status(404).json({
+        error: "Booking with given id not found"
+      })
+    }
+
+    return res.json({
+      booking,
+      user: decoded.id,
+      status: "Booking deleted successfully"
+    });
   }
 }
