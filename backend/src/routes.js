@@ -34,7 +34,7 @@ routes.get('/users/search', MentorController.index);
 
 routes.post('/mentors/:id/bookings', BookingController.store);
 
-routes.post('/users/edit', avatarUpload.single('avatar'), UserController.update);
+routes.put('/users/edit', avatarUpload.single('avatar'), UserController.update);
 
 routes.get('/mentors', MentorController.show);
 
