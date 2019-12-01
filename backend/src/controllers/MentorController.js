@@ -12,11 +12,29 @@ module.exports = {
       })
     }
 
-    const { tech } = req.query;
+    if(!req.query.tech) {
+      return res.status(400).json({
+        error: "Paramater expected"
+      });
+    }
+    
+    const tech = await Tech.findOne({
+      description: req.query.tech
+    });
 
-    console.log(tech)
+    if(!tech) {
+      return res.status(404).json({
+        error: "Tech not found"
+      });
+    }
 
-    let mentors = await Mentor.find({ tech });
+    const mentors = await Mentor.find().where('skills.tech').equals(tech._id);
+
+    if(mentors.length == 0) {
+      return res.status(404).json({
+        error: "No mentors found for given paramater"
+      })
+    }
 
     return res.json(mentors);
   },
