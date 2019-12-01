@@ -1,41 +1,42 @@
 const Booking = require('../models/Booking');
 const User = require('../models/User');
 const Mentor = require('../models/Mentor');
+const Tech = require('../models/Tech');
 
 module.exports = {
   async store(req, res) {
-    const { date, hour, duration, tech, status } = req.body;
-    const { user_id } = req.headers;
-    const { mentor_id } = req.params;
+    const { decoded } = req;    
 
-    const user = await User.findById(user_id);
-    const mentor = await Mentor.findById(mentor_id);
-
-    if(!user) {
-      return res.status(400).json({ error: 'User does not exists' });
+    if(!await User.findById(decoded.id)) {
+      return res.status(404).json({ error: 'User does not exists' });
     }
+
+    const mentor = await Mentor.findById(req.params.mentor);
 
     if(!mentor) {
-      return res.status(400).json({ error: 'Mentor does not exists '});
+      return res.status(404).json({ error: 'Mentor does not exists '});
     }
 
-    let booking = await Booking.findOne({ date, hour, mentor: mentor_id });
-
-    if(booking) {
-      return res.status(409).json({ error: 'There is a booked attendance for the same date and menthor' });
+    if(!await Tech.findById(req.body.tech)) {
+      return res.status(404).json({ error: 'Tech does not exists '});
     }
 
-    booking = await Booking.create({
-      date,
-      hour,
-      duration,
-      tech,
-      user: user_id,
-      mentor: mentor_id,
-      status
+    const { date, hour } = req.body
+
+    if(await Booking.findOne({ date, hour, mentor})) {
+      return res.status(400).json({
+        error: 'There is a booked attendance for the same date and mentor'
+      });
+    }
+
+    const booking = await Booking.create({
+      ...req.body,
+      ...req.params,
+      user: decoded.id
     });
 
     await booking.populate('tech').populate('user').populate('mentor').execPopulate();
+    await booking.populate('mentor.user_id').execPopulate()
 
     return res.json(booking);
   }

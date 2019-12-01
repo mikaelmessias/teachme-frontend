@@ -32,7 +32,7 @@ routes.use(authMiddleware);
 routes.get('/users', UserController.show);
 routes.get('/users/search', MentorController.index);
 
-routes.post('/mentors/:id/bookings', BookingController.store);
+routes.post('/mentors/:mentor/bookings', BookingController.store);
 
 routes.put('/users/edit', avatarUpload.single('avatar'), UserController.update);
 
