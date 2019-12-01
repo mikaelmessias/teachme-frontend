@@ -36,13 +36,13 @@ module.exports = {
     return res.json(mentor);
   },
 
-  async remove(req, res) {
+  async destroy(req, res) {
     const { decoded } = req;
 
     await Mentor.updateOne({ user_id: decoded.id }, {
       "$pull": {
         "skills": {
-          "tech": req.body.tech
+          "tech": req.params.tech_id
         }
       }
     }, { safe: true, multi:true }, (err, raw) => {});

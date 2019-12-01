@@ -12,7 +12,9 @@ module.exports = {
       })
     }
 
-    const { tech } = req.params;
+    const { tech } = req.query;
+
+    console.log(tech)
 
     let mentors = await Mentor.find({ tech });
 
@@ -23,6 +25,12 @@ module.exports = {
     const { decoded } = req;
 
     let mentor = await Mentor.findOne({ user_id: decoded.id });
+
+    if(!mentor || !(await User.findById(decoded.id))) {
+      return res.status(404).json({
+        error: "User not found"
+      })
+    }
 
     await mentor.populate('user_id').populate('skills.tech').execPopulate();
 
@@ -64,5 +72,5 @@ module.exports = {
     await mentor.populate('user_id').populate('skills.tech').execPopulate();
 
     return res.json(mentor);
-  } 
+  }
 };

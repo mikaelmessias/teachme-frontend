@@ -1,6 +1,27 @@
 const User = require('../models/User');
 
 module.exports = {
+  async show(req, res) {
+    try {
+      const { decoded } = req;
+      
+      const user = await User.findById(decoded.id);
+
+      if(!user) {
+        return res.status(404).json({
+          error: "User not found"
+        });
+      }
+
+      return res.json(user);
+    }
+    catch (err) {
+      return res.status(400).json({
+        error: "Cant get user information"
+      });
+    }
+  },
+
   async store(req, res) {
     const { email } = req.body;
     const { filename } = req.file;
@@ -78,27 +99,6 @@ module.exports = {
       return res.status(400).json({
         error: "User authentication failed"
       })
-    }
-  },
-
-  async dashboard(req, res) {
-    try {
-      const { decoded } = req;
-      
-      const user = await User.findById(decoded.id);
-
-      if(!user) {
-        return res.status(404).json({
-          error: "User not found"
-        });
-      }
-
-      return res.json({ user });
-    }
-    catch (err) {
-      return res.status(400).json({
-        error: "Cant get user information"
-      });
     }
   }
 };

@@ -4,15 +4,12 @@ module.exports = {
   async index(req, res) {
     const { tech } = req.query; 
 
-    const techs = await Tech.find({ description: tech });
-
-    if(techs.length == 0) {
-      return res.status(404).json({
-        error: "No tech found with given keyword"
-      })
+    if(tech) {
+      return res.json(await Tech.find({ description: tech }));
     }
-
-    return res.json(techs);
+    else {
+      return res.json(await Tech.find());
+    }
   },
 
   async store(req, res) {

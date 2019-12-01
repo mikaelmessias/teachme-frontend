@@ -28,16 +28,16 @@ routes.post('/users/authenticate', UserController.authenticate);
 
 routes.use(authMiddleware);
 
-routes.get('/mentors', MentorController.show);
-routes.get('/mentors/search', MentorController.index);
+routes.get('/users', UserController.show);
+routes.get('/users/search', MentorController.index);
 
-routes.post('/dashboard', UserController.dashboard);
+routes.post('/mentors/:id/bookings', BookingController.store);
 
 routes.post('/users/edit', avatarUpload.single('avatar'), UserController.update);
 
-routes.post('/mentors/skills/remove', SkillController.remove);
-routes.post('/mentors/skills/add', SkillController.store);
+routes.get('/mentors', MentorController.show);
 
-routes.post('/mentors/:mentor_id/bookings', BookingController.store);
+routes.post('/mentors/skills', SkillController.store);
+routes.delete('/mentors/skills/:tech_id', SkillController.destroy);
 
 module.exports = routes;
