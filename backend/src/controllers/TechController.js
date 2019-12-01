@@ -4,9 +4,12 @@ module.exports = {
   async index(req, res) {
     const { tech } = req.query; 
 
-    const techs = await Tech.find({ description: tech });
-
-    return res.json(techs);
+    if(tech) {
+      return res.json(await Tech.find({ description: tech }));
+    }
+    else {
+      return res.json(await Tech.find());
+    }
   },
 
   async store(req, res) {
@@ -15,12 +18,16 @@ module.exports = {
 
     let tech = await Tech.findOne({ description });
 
-    if(!tech) {
-      tech = await Tech.create({
-        description,
-        thumbnail: filename
-      });
+    if(tech) {
+      return res.status(400).json({
+        error: "Tech already registered"
+      })
     }
+
+    tech = await Tech.create({
+      description,
+      thumbnail: filename
+    });
 
     return res.json(tech);
   }
