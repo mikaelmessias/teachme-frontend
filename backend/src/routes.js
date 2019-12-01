@@ -30,6 +30,8 @@ routes.use(authMiddleware);
 routes.get('/mentors', MentorController.show);
 routes.get('/mentors/search', MentorController.index);
 
+routes.post('/users/edit', avatarUpload.single('avatar'), UserController.update);
+
 routes.post('/dashboard', UserController.dashboard);
 
 routes.post('/mentors/:mentor_id/bookings', BookingController.store);

@@ -26,6 +26,25 @@ module.exports = {
     }
   },
 
+  async update(req, res) {
+    const { decoded } = req;
+    const filename = req.file ? req.file.filename : null;
+    
+    if(filename) {
+      await User.updateOne({ _id: decoded.id }, {
+        ...req.body,
+        avatar: filename
+      });  
+    }
+    else {
+      await User.updateOne({ _id: decoded.id }, req.body);
+    }
+
+    const user = await User.findOne({ _id: decoded.id });
+
+    return res.json(user);
+  },
+
   async authenticate(req, res) {
     try {
       const { email, password } = req.body;
