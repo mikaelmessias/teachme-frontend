@@ -8,6 +8,7 @@ const avatarUploadConfig = require('./config/avatarUploadConfig');
 
 const MentorController = require('./controllers/MentorController');
 const SkillController = require('./controllers/SkillController');
+const AvailabilityController = require('./controllers/AvailabilityController');
 const TechController = require('./controllers/TechController');
 const UserController = require('./controllers/UserController');
 const BookingController = require('./controllers/BookingController');
@@ -39,5 +40,7 @@ routes.get('/mentors', MentorController.show);
 
 routes.post('/mentors/skills', SkillController.store);
 routes.delete('/mentors/skills/:tech_id', SkillController.destroy);
+
+routes.post('/mentors/availability', AvailabilityController.store);
 
 module.exports = routes;
