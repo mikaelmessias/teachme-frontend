@@ -4,6 +4,35 @@ const Mentor = require('../models/Mentor');
 const Tech = require('../models/Tech');
 
 module.exports = {
+  async index(req, res) {
+    const { decoded } = req;
+    
+    const user = await User.findById(decoded.id);
+
+    if(!user) {
+      return res.status(404).json({
+        error: "User does not exists"
+      });
+    }
+    
+    let bookings = null;
+
+    if(user.access === "PADAWAN") {
+      bookings = await Booking.find().where('user').equals(decoded.id);
+    }
+    else if(user.access === "MENTOR") {
+      const mentor = await Mentor.findOne({
+        user_id: decoded.id
+      });
+
+      bookings = await Booking.find({
+        mentor: mentor._id
+      });
+    }
+
+    return res.json(bookings);
+  },
+
   async store(req, res) {
     const { decoded } = req;    
 
@@ -47,27 +76,39 @@ module.exports = {
     return res.json(booking);
   },
 
-  async destroy(req, res) {
+  async update(req, res) {
     const { decoded } = req;
+    const booking_id = req.params.booking;
 
     if(!await User.findById(decoded.id)) {
       return res.status(404).json({
-        error: "User does not exists"
+        error: "User not found"
       })
     }
 
-    const booking = await Booking.findByIdAndDelete(req.params.booking);
-
-    if(!booking) {
-      return res.status(404).json({
-        error: "Booking with given id not found"
-      })
-    }
-
-    return res.json({
-      booking,
-      user: decoded.id,
-      status: "Booking deleted successfully"
+    const mentor = await Mentor.findOne({
+      user_id: decoded.id
     });
+
+    if(!mentor) {
+      return res.status(403).json({
+        error: "Access not allowed for this user"
+      })
+    }
+
+    if(!await Booking.findById(booking_id)) {
+      return res.status(404).json({
+        error: "Booking not found"
+      })
+    }
+
+    const update = await Booking.updateOne({
+      _id: booking_id,
+      mentor: mentor._id,
+    }, req.body);
+
+    const booking = await Booking.findById(booking_id);
+
+    return res.json({ booking, update });
   }
 }

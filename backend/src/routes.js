@@ -32,8 +32,9 @@ routes.use(authMiddleware);
 routes.get('/users', UserController.show);
 routes.get('/users/search', MentorController.index);
 
+routes.get('/mentors/bookings', BookingController.index);
 routes.post('/mentors/bookings', BookingController.store);
-routes.delete('/mentors/bookings/:booking', BookingController.destroy);
+routes.put('/mentors/bookings/:booking', BookingController.update);
 
 routes.put('/users/edit', avatarUpload.single('avatar'), UserController.update);
 
