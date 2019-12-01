@@ -17,10 +17,10 @@ module.exports = {
         avatar: filename
       });
 
-      return res.json(user);
+      return res.status(201).json(user);
     }
     catch (err) {
-      return res.status(400);json({
+      return res.status(400).json({
         error: "User registration failed"
       })
     }
@@ -29,6 +29,12 @@ module.exports = {
   async update(req, res) {
     const { decoded } = req;
     const filename = req.file ? req.file.filename : null;
+
+    if(!await User.findOne({ _id: decoded.id })) {
+      return res.status(404).json({
+        error: "User not found"
+      })
+    }
     
     if(filename) {
       await User.updateOne({ _id: decoded.id }, {
@@ -42,7 +48,7 @@ module.exports = {
 
     const user = await User.findOne({ _id: decoded.id });
 
-    return res.json(user);
+    return res.status(201).json(user);
   },
 
   async authenticate(req, res) {
@@ -80,6 +86,12 @@ module.exports = {
       const { decoded } = req;
       
       const user = await User.findById(decoded.id);
+
+      if(!user) {
+        return res.status(404).json({
+          error: "User not found"
+        });
+      }
 
       return res.json({ user });
     }
