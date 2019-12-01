@@ -27,6 +27,9 @@ routes.post('/users/authenticate', UserController.authenticate);
 
 routes.use(authMiddleware);
 
+routes.get('/mentors', MentorController.show);
+routes.get('/mentors/search', MentorController.index);
+
 routes.post('/dashboard', UserController.dashboard);
 
 routes.post('/mentors/:mentor_id/bookings', BookingController.store);
