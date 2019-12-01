@@ -36,6 +36,7 @@ routes.post('/dashboard', UserController.dashboard);
 routes.post('/users/edit', avatarUpload.single('avatar'), UserController.update);
 
 routes.post('/mentors/skills/remove', SkillController.remove);
+routes.post('/mentors/skills/add', SkillController.store);
 
 routes.post('/mentors/:mentor_id/bookings', BookingController.store);
 
