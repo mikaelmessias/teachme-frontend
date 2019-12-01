@@ -7,6 +7,7 @@ const thumbUploadConfig = require('./config/thumbUploadConfig');
 const avatarUploadConfig = require('./config/avatarUploadConfig');
 
 const MentorController = require('./controllers/MentorController');
+const SkillController = require('./controllers/SkillController');
 const TechController = require('./controllers/TechController');
 const UserController = require('./controllers/UserController');
 const BookingController = require('./controllers/BookingController');
@@ -30,9 +31,11 @@ routes.use(authMiddleware);
 routes.get('/mentors', MentorController.show);
 routes.get('/mentors/search', MentorController.index);
 
+routes.post('/dashboard', UserController.dashboard);
+
 routes.post('/users/edit', avatarUpload.single('avatar'), UserController.update);
 
-routes.post('/dashboard', UserController.dashboard);
+routes.post('/mentors/skills/remove', SkillController.remove);
 
 routes.post('/mentors/:mentor_id/bookings', BookingController.store);
 
