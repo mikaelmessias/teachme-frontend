@@ -6,6 +6,12 @@ module.exports = {
 
     const techs = await Tech.find({ description: tech });
 
+    if(techs.length == 0) {
+      return res.status(404).json({
+        error: "No tech found with given keyword"
+      })
+    }
+
     return res.json(techs);
   },
 
@@ -15,12 +21,16 @@ module.exports = {
 
     let tech = await Tech.findOne({ description });
 
-    if(!tech) {
-      tech = await Tech.create({
-        description,
-        thumbnail: filename
-      });
+    if(tech) {
+      return res.status(400).json({
+        error: "Tech already registered"
+      })
     }
+
+    tech = await Tech.create({
+      description,
+      thumbnail: filename
+    });
 
     return res.json(tech);
   }
