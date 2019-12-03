@@ -14,7 +14,7 @@ module.exports = {
 
     if(!req.query.tech) {
       return res.status(400).json({
-        error: "Paramater expected"
+        error: "Tech paramater expected"
       });
     }
     
@@ -60,30 +60,41 @@ module.exports = {
     const { filename } = req.file;
 
     let user = await User.findOne({ email });
-    let mentor;
-
-    if(user) {
-      mentor = await Mentor.findOne({ user_id: user._id });
-    }
-    else {
+    
+    if(!user) {
       user = await User.create({
         ...req.body,
         access: "MENTOR",
         avatar: filename
       });
+    }
 
-      let availableAt = req.body.availableOn.split(',');
-      let skills = req.body.skills.split(';').map(
-        info => ({
-          tech: info.split(',')[0],
-          price: info.split(',')[1]
-        })
-      )
+    let mentor = await Mentor.findOne({ user_id: user._id });
 
+    if(mentor) {
+      return res.status(400).json({
+        error: "Mentor already exists"
+      });
+    }
+
+    const availableAt = req.body.availableOn.split(',');
+    const skills = req.body.skills.split(';').map(
+      info => ({
+        tech: info.split(',')[0],
+        price: info.split(',')[1]
+      })
+    )
+
+    try {
       mentor = await Mentor.create({
         user_id: user._id,
         skills,
         availableAt
+      });
+    }
+    catch (err) {
+      return res.status(400).json({
+        error: err.message
       });
     }
 

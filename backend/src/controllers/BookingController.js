@@ -83,7 +83,7 @@ module.exports = {
     if(!await User.findById(decoded.id)) {
       return res.status(404).json({
         error: "User not found"
-      })
+      });
     }
 
     const mentor = await Mentor.findOne({
