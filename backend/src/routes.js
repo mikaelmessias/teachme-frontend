@@ -3,8 +3,8 @@ const multer = require('multer');
 
 const authMiddleware = require('./middlewares/auth');
 
-const thumbUploadConfig = require('./config/thumbUploadConfig');
-const avatarUploadConfig = require('./config/avatarUploadConfig');
+const thumbUploadConfig = require('./config/upload/thumb');
+const avatarUploadConfig = require('./config/upload/avatar');
 
 const MentorController = require('./controllers/MentorController');
 const SkillController = require('./controllers/SkillController');
