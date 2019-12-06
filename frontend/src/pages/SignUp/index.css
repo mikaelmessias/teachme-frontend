@@ -1,0 +1,245 @@
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  min-height: 100%;
+} 
+
+body {
+  background: #F2F2F2;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+body, input, button {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px;
+}
+
+a, a:link, a:visited, a:hover {
+  text-decoration: none;
+}
+
+button,
+input[type="submit"] {
+  display: block;
+  width: 200px;
+  margin: 0 auto;
+  padding: 10px 0;
+  font-weight: 700;
+  border: 0;
+  border-radius: 25px;
+  background-color: unset;
+  transition: background-color 0.2s;
+}
+
+.btn-no-bg {
+  color: #F2F2F2;
+  border: 3px solid #F2F2F2;
+}
+
+.btn-no-bg:hover {
+  background-color: #6717D1;
+}
+
+input:not([type="submit"]) {
+  padding: 16px;
+  border: 1px solid #646262;
+  border-right: 5px solid #646262;
+  border-radius: 5px;
+  transition: border-color 0.5s;
+}
+
+input:not([type="submit"]):focus {
+  border-color: #6717D1;
+}
+
+input::placeholder {
+  font-size: 12px;
+}
+
+
+/**********************
+* Layout
+**********************/
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/** 
+  * col-lg: column large 
+  * col-md: column medium
+  * col-sm: column small
+***/
+.col-lg, .col-sm {
+  padding: 20px;
+}
+
+.col-lg {
+  width: 60%;
+}
+
+.col-sm {
+  background: url('../../assets/png/bg-blue.png');
+  width: 40%;
+  height: 100vh;
+  color: #fff;
+}
+
+/* CONTENT */
+.content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.content > div {
+  margin-top: 32px;
+}
+
+.content > div > h2 {
+  font-weight: 700;
+  font-size: 36px;
+}
+
+.content > div > p {
+  margin-top: 16px;
+}
+
+/* FORM */
+.content > form {
+  margin-top: 32px;
+}
+
+.content > form > input[type="text"] {
+  margin-right: 20px;
+}
+
+
+/* RADIO */
+
+.content > form > section {
+  margin: 32px 0;
+}
+
+.content > form > section > p {
+  margin-top: 4px;
+}
+
+.content > form > section > div {
+  margin-top: 16px;
+}
+
+.content > form > section > div > input {
+  background-color: #fff;
+  color: #fff;
+  vertical-align: middle;
+  top: -1px;
+  position: relative;
+  border: 2px solid #fff;
+  background-color: blue;
+}
+
+.content > form > section > div .radio-group {
+  position: relative;
+  padding-left: 25px;
+  cursor: pointer;
+  font-size: 14px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.content > form > section > div .radio-group input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.content > form > section > div .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 8px;
+  background-color: unset;
+  border-radius: 50%;
+  transition: all 0.1s;
+}
+
+.content > form > section > div .radio-group:first-child {
+  margin-right: 20px;
+}
+
+.content > form > section > div .radio-group:first-child .checkmark {
+  border: 2px solid #FF4444;
+}
+
+.content > form > section > div .radio-group:last-child .checkmark {
+  border: 2px solid #6717D1;
+}
+
+.content > form > section > div .radio-group:first-child:hover input ~ .checkmark {
+  background-color: rgb(255, 118, 118);
+}
+
+.content > form > section > div .radio-group:last-child:hover input ~ .checkmark {
+  background-color: #2196F3;
+}
+
+.content > form > section > div .radio-group:first-child input:checked ~ .checkmark {
+  background-color: #FF4444;
+}
+
+.content > form > section > div .radio-group:last-child input:checked ~ .checkmark {
+  background-color: #6717D1;
+}
+
+
+/* SUBMIT */
+.content > form > input[type="submit"] {
+  color: #F2F2F2;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #646262;
+}
+
+.content > form > input[type="submit"]:hover {
+  background-color: #2A2A2A;
+}
+
+
+
+
+
+/* ASIDE */
+aside {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+aside h2 {
+  font-size: 36px;
+  margin-bottom: 16px;
+}
+
+aside p {
+}
+
+aside img {
+  display: block;
+  margin: 32px auto;
+}
