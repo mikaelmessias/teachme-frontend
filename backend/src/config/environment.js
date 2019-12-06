@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const environment = ["DATABASE", "PORT"];
+const environment = ["DATABASE", "PORT", "FROM_EMAIL", "FROM_PASSWORD"];
 
 environment.forEach(name => {
   if (!process.env[name]) {
@@ -10,7 +10,9 @@ environment.forEach(name => {
 
 const config = {
   DATABASE: process.env.DATABASE,
-  PORT: process.env.PORT
+  PORT: process.env.PORT,
+  FROM_EMAIL: process.env.FROM_EMAIL,
+  FROM_PASSWORD: process.env.FROM_PASSWORD
 };
 
 module.exports = config;
