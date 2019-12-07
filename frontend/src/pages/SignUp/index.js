@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './index.scss';
 import logo from '../../assets/png/logo.png';
 import iconCadastro from '../../assets/svg/cadastro-sm.svg';
 import iconLogin from '../../assets/svg/login-md.svg';
 
-export default function SignUp () {
+export default function SignUp ({ history }) {
+  const [email, setEmail] = useState('');
+  const [role, setRole] = useState('');
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    history.push('/signup', { email, role });
+  }
 
   return (
     <div id="signUpScreen" className="container">
@@ -27,9 +34,18 @@ export default function SignUp () {
               <strong>recursos fantásticos</strong> em poucos cliques
             </p>
 
-            <form class="form" onSubmit="">
+            <form class="form" onSubmit={ handleSubmit }>
               <div class="inputEmail" data-placeholder="Digite seu melhor email">
-                <input type="email" autoFocus/>
+                <input
+                  id="email"
+                  type="email"
+                  value={ email }
+                  onChange= {
+                    event => setEmail(event.target.value)
+                  }
+                  required
+                  autoFocus
+                />
               </div>
 
               <div className="inputRole">
@@ -47,6 +63,9 @@ export default function SignUp () {
                       type="radio"
                       name="userType"
                       value="MENTOR"
+                      onClick = {
+                        () => setRole('MENTOR')
+                      }
                     />
                     <span class="checkmark"/>
                   </label>
@@ -56,6 +75,9 @@ export default function SignUp () {
                       type="radio"
                       name="userType"
                       value="PADAWAN"
+                      onClick = {
+                        () => setRole('PADAWAN')
+                      }
                       required
                     />
                     <span class="checkmark"/>
