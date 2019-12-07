@@ -1,107 +1,92 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-// import api from '../../services/api';
-
-import './index.css';
-
+import './index.scss';
 import logo from '../../assets/png/logo.png';
-import icCadastro from '../../assets/svg/cadastro-sm.svg';
-import icLogin from '../../assets/svg/login-md.svg';
+import iconCadastro from '../../assets/svg/cadastro-sm.svg';
+import iconLogin from '../../assets/svg/login-md.svg';
 
-export default function SignUp ({ history }) {
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-
-  function handleSubmit(event) {
-    event.preventDefault();
-
-    history.push('/signup', { email, name });
-  }
+export default function SignUp () {
 
   return (
-    <div class="container">
-      <div className="col-lg">
-        <h1>
-          <img src={logo} alt="Logo - Teach.me"/>
-        </h1>
+    <div id="signUpScreen" className="container">
+      <div id="signUpForm">
+        <div className="row">
+          <header className="header">
+            <img src={logo} alt="Logo"/>
+          </header>
 
-        <section className="content">
-          <img src={icCadastro} alt="Cadastre-se"/>
+          <section className="content">
+            <figure>
+              <img src={iconCadastro} alt="Ícone de cadastro"/>
+            </figure>
 
-          <div>
-            <h2>
-              Bem vindo, jovem!
-            </h2>
+            <h1>Bem vindo, jovem!</h1>
 
             <p>
-              Acesse todos os nossos<br/>
-              <strong>recursos fantásticos</strong> em poucos cliques!
+              Acesso todos os nossos <br/>
+              <strong>recursos fantásticos</strong> em poucos cliques
             </p>
-          </div>
 
-          <form onSubmit={handleSubmit}>
-            <input
-              id="name"
-              type="text"
-              placeholder="Digite seu nome completo"
-              value={name}
-              onChange={event => setName(event.target.value)}
-              required
-              autoFocus
-            />
-          
-            <input
-              id="email"
-              type="email"
-              placeholder="Digite seu melhor email"
-              value={email}
-              onChange={event => setEmail(event.target.value)}
-              required
-            />
-
-            <section>
-              <h3>O que você procura no Teach.me?</h3>
-              <p>Escolha uma das opções abaixo</p>
-
-              <div> 
-                <label class="radio-group">Quero ser um mentor
-                  <input
-                    type="radio"
-                    name="userType"
-                    value="MENTOR"
-                  />
-                  <span class="checkmark"/>
-                </label>
-
-                <label class="radio-group">Preciso de ajuda
-                  <input
-                    type="radio"
-                    name="userType"
-                    value="PADAWAN"
-                    required
-                  />
-                  <span class="checkmark"/>
-                </label>
+            <form class="form" onSubmit="">
+              <div class="inputEmail" data-placeholder="Digite seu melhor email">
+                <input type="email" autoFocus/>
               </div>
-            </section>
 
-            <input type="submit" value="Continuar"/>
-          </form>
-        </section>
+              <div className="inputRole">
+                <span className="title">
+                  O que você procura no Teach.me?
+                </span>
+
+                <span className="description">
+                  Escolha uma das opções abaixo
+                </span>
+
+                <div className="role">
+                  <label class="radio-group">Quero ser um mentor
+                    <input
+                      type="radio"
+                      name="userType"
+                      value="MENTOR"
+                    />
+                    <span class="checkmark"/>
+                  </label>
+
+                  <label class="radio-group">Preciso de ajuda
+                    <input
+                      type="radio"
+                      name="userType"
+                      value="PADAWAN"
+                      required
+                    />
+                    <span class="checkmark"/>
+                  </label>
+                </div>
+              </div>
+            
+              <div className="inputSubmit">
+                  <input type="submit" value="Continuar"/>
+                </div>
+            </form>
+          </section>
+        </div>
       </div>
 
-      <div className="col-sm">
-        <aside>
+      <aside id="loginMessage">
+        <div className="row">
           <h2>Já tem uma conta?</h2>
+          
+          <p>
+            Que tal colocar seus estudos em dia? <br/>
+            Netflix pode esperar &lt;3
+          </p>
 
-          <p>Que tal colocar seus estudos em dia?</p>
-          <p>Netflix pode esperar &lt;3</p>
+          <figure>
+            <img src={iconLogin} alt="Ícone de login"/>
+          </figure>
 
-          <img src={icLogin} alt="Login"/>
-
-          <a href="./"><button class="btn btn-no-bg">Entrar</button></a>
-        </aside>
-      </div>
+          <a href="/login">Entrar</a>
+        </div>
+      </aside>
     </div>
   );
 }

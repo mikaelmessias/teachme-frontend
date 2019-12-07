@@ -1,0 +1,212 @@
+@import '../../css/colors.scss';
+@import '../../css/animations.scss';
+
+#signUpScreen {
+  // animation: fadeIn 2s;
+
+  .row {
+    padding: 20px 32px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  #signUpForm {
+    width: 60%;
+
+    .header {
+      margin-bottom: 32px;
+    }
+
+    .content {
+      text-align: center;
+
+      figure {
+        margin-bottom: 32px;
+      }
+
+      h1 {
+        font-size: 36px;
+        color: $title;
+        margin-bottom: 16px;
+      }
+
+      p {
+        color: $baseGrey;
+        margin-bottom: 32px;
+
+        strong {
+          color: $title;
+        }
+      }
+
+      .form {
+        width: 400px;
+        margin: 0 auto;
+
+        .inputEmail {
+          position: relative;
+          width: 320px;
+          margin: 0 auto 32px auto;
+          
+          &:after {
+            position: absolute;
+            left: 8px;
+            top: 8px;
+            font-size: 12px;
+            content: attr(data-placeholder);
+            pointer-events: none;
+            opacity: 0.6;
+          }
+
+          input {
+            padding: 32px 8px 8px 8px;
+            border: 1px solid $baseGrey;
+            border-right: 5px solid $baseGrey;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+            background-color: unset;
+            transition: all 0.2s;
+
+            &:focus {
+              border-color: $baseBlue;
+            }
+          }
+        }
+
+        .inputRole {
+          .title {
+            display: block;
+            color: $title;
+            font-weight: 500;
+            margin-bottom: 4px;
+          }
+
+          .description {
+            display: block;
+            font-size: 12px;
+            color: $subtitle;
+            margin-bottom: 16px;
+          }
+
+          .role {
+            display: block;
+            margin-bottom: 32px;
+
+            .radio-group {
+              position: relative;
+              padding-left: 25px;
+              cursor: pointer;
+              font-size: 14px;
+              user-select: none;
+
+              input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+              }
+
+              .checkmark {
+                position: absolute;
+                top: 0;
+                left: 0;
+                padding: 8px;
+                background-color: unset;
+                border-radius: 50%;
+                transition: all 0.1s;                
+              }
+
+              &:first-child {
+                margin-right: 20px;
+              }
+
+              &:first-child .checkmark {
+                border: 2px solid $baseRed;
+              }
+
+              &:last-child .checkmark {
+                border: 2px solid $baseBlue;
+              }
+
+              &:first-child:hover input ~ .checkmark,
+              &:last-child:hover input ~ .checkmark {
+                background-color: #ccc;
+              }
+
+              &:first-child input:checked ~ .checkmark {
+                background-color: $baseRed;
+              }
+
+              &:last-child input:checked ~ .checkmark {
+                background-color: $baseBlue;
+              }
+            }
+
+          }
+        }
+
+        .inputSubmit {
+          input {
+            border: 0;
+            border-radius: 50px;
+            color: $baseWhite;
+            font-weight: 600;
+            background-color: $baseBlue;
+            padding: 12px 20px;
+            width: 200px;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+
+            &:hover {
+              background-color: $baseGrey;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  #loginMessage {
+    width: 40%;
+    min-height: 100%;
+    height: 100vh;
+    background: url('../../assets/png/bg-blue.png') no-repeat;
+    background-size: cover; 
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: $baseWhite;
+
+    h2 {
+      color: white;
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+
+    p {
+      margin-bottom: 32px;
+    }
+
+    figure {
+      margin-bottom: 32px;
+    }
+
+    a {
+      display: block;
+      width: 200px; 
+      padding: 12px 20px;
+      margin: 0 auto;
+      color: $baseWhite;
+      font-weight: 600;
+      text-decoration: none;
+      border: 3px solid $baseWhite;
+      border-radius: 50px;
+      transition: all 0.3s;
+
+      &:hover {
+        background-color: $baseBlue;
+      }
+    }
+  }
+}
