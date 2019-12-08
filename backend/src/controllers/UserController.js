@@ -14,8 +14,6 @@ module.exports = {
         });
       }
 
-      mail.send("welcome", user);
-
       return res.json(user);
     }
     catch (err) {
@@ -41,11 +39,7 @@ module.exports = {
         avatar: filename
       });
 
-      const message = "\
-      <center><h1>Bem vindo ao Teach.me, " + user.name + "</h1></center>\
-      ";
-
-      mail.sendMail(user.email, "Bem vindo ao Teach.me!", message);
+      mail.send("welcome", user);
 
       return res.status(201).json(user);
     }
