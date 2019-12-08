@@ -3,7 +3,7 @@ import React from 'react';
 import './index.scss';
 import logo from '../../../../assets/png/logo.png';
 
-import { faArrowCircleLeft, faFlagCheckered } from "@fortawesome/free-solid-svg-icons";
+import { faFlagCheckered } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import iconCadastro from '../../../../assets/svg/cadastro-red.svg';
