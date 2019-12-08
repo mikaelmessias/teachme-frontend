@@ -5,7 +5,7 @@ const User = require('../../models/User');
 
 module.exports = {
   storage: multer.diskStorage({
-    destination: path.resolve(__dirname, '..', '..', 'uploads', 'avatar'),
+    destination: path.resolve(__dirname, '..', '..', '..', 'uploads', 'avatar'),
     onFileUploadStart: () => {
       return false;
     },

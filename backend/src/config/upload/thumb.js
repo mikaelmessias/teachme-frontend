@@ -5,7 +5,7 @@ const Tech = require('../../models/Tech');
 
 module.exports = {
   storage: multer.diskStorage({
-    destination: path.resolve(__dirname, '..', '..', 'uploads', 'thumbnail'),
+    destination: path.resolve(__dirname, '..', '..', '..', 'uploads', 'thumbnail'),
 
     filename: async (req, file, cb) => {
       const ext = path.extname(file.originalname);
