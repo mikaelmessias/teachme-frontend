@@ -1,0 +1,447 @@
+@import '../../../css/colors.scss';
+
+#mentorSignUpFormScreen {
+  display: block;
+  width: 100%;
+
+  .row {
+    padding: 0px 32px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .header {
+    text-align: center;
+
+    #firstRow {
+      padding: 32px;
+      display: flex;
+
+      .logo {
+        width: 80%;
+      }
+
+      .closeButton {
+        width: 10%;
+        text-align: right;
+
+        a {
+          font-size: 30px;
+          color: $baseBlue;
+          transition: all 0.3s;
+
+          &:hover {
+            color: $baseGrey;
+          }
+        }
+      }
+    }
+
+    #secondRow {
+      padding: 16px 0;
+      margin-bottom: 32px;
+      color: $baseWhite;
+      background-color: $baseBlue;
+    }
+  }
+
+  #signUpForm {
+    display: flex;
+
+    .data {
+      width: 80%;
+
+      fieldset {
+        padding: 20px 0;
+        border: 0;
+        
+        legend {
+          padding: 0 32px;
+          font-size: 20px;
+          font-weight: 500;
+          color: $title;
+
+          &:after {
+            content: "";
+            display: block;
+            width: 50px;
+            margin-top: 4px;
+            border: 1px solid $baseBlue;
+          }
+        }
+
+        .formRow {
+          display: flex;
+          margin-bottom: 16px;
+          border: 0;
+
+          .input {
+            position: relative;
+            width: 45%;
+            margin: 0 32px;
+            
+            &:after {
+              position: absolute;
+              left: 8px;
+              top: 8px;
+              font-size: 12px;
+              content: attr(data-placeholder);
+              pointer-events: none;
+              opacity: 0.6;
+            }
+  
+            input {
+              padding: 32px 8px 8px 8px;
+              border: 1px solid $baseGrey;
+              border-right: 5px solid $baseGrey;
+              border-radius: 4px;
+              color: $title;
+              width: 100%;
+              background-color: unset;
+              transition: all 0.2s;
+  
+              &:focus {
+                border-color: $baseBlue;
+              }
+
+              &::placeholder {
+                font-size: 14px;
+                font-family: 'IBM Plex Sans', sans-serif;
+              }
+            }
+          }
+
+          .textarea {
+            position: relative;
+            width: 100%;
+            margin: 0 32px;
+            
+            &:after {
+              position: absolute;
+              left: 8px;
+              top: 8px;
+              font-size: 12px;
+              content: attr(data-placeholder);
+              pointer-events: none;
+              opacity: 0.6;
+            }
+
+            textarea {
+              padding: 32px 8px 8px 8px;
+              border: 1px solid $baseGrey;
+              border-right: 5px solid $baseGrey;
+              border-radius: 4px;
+              font-family: 'IBM Plex Sans', sans-serif;
+              width: 100%;
+              background-color: unset;
+              transition: all 0.2s;
+              resize: none;
+              color: $title;
+
+              &:focus {
+                border-color: $baseBlue;
+              }
+
+              &::placeholder {
+                font-family: 'IBM Plex Sans', sans-serif;
+              }
+            }
+          }
+        }
+      }
+
+      fieldset#skills {
+        display: flex;
+        padding-left: 32px;
+        padding-right: 32px;
+        justify-content: center;
+        margin-bottom: 32px;
+
+        legend {
+          padding: 0;
+        }
+
+        select, input {
+          margin-bottom: 16px;
+        }
+
+        .skillsSelector {
+          display: flex;
+          flex-flow: column;
+          width: 50%;
+
+          .select {
+            position: relative;
+            width: 100%;
+            
+            &:after {
+              position: absolute;
+              left: 8px;
+              top: 8px;
+              font-size: 12px;
+              content: attr(data-placeholder);
+              pointer-events: none;
+              opacity: 0.6;
+            }
+            
+            div:after {
+              content: "\25bc";
+              color: #888;
+              padding: 20px 28px;
+              position: absolute;
+              right: 0;
+              top: 0;
+              text-align: center;
+              pointer-events: none;
+            }
+            
+            select {
+              font-size: 16px;
+              padding: 32px 8px 8px 8px;
+              border: 1px solid $baseGrey;
+              border-right: 5px solid $baseGrey;
+              border-radius: 4px;
+              color: $title;
+              width: 100%;
+              background-color: unset;
+              transition: all 0.2s;
+              appearance: none;
+  
+              &:focus {
+                border-color: $baseBlue;
+              }
+
+              &::placeholder {
+                font-size: 14px;
+                font-family: 'IBM Plex Sans', sans-serif;
+              }
+            }
+          }
+
+          .input {
+            position: relative;
+            width: 100%;
+            
+            &:after {
+              position: absolute;
+              left: 8px;
+              top: 8px;
+              font-size: 12px;
+              content: attr(data-placeholder);
+              pointer-events: none;
+              opacity: 0.6;
+            }
+  
+            input {
+              padding: 32px 8px 8px 8px;
+              border: 1px solid $baseGrey;
+              border-right: 5px solid $baseGrey;
+              border-radius: 4px;
+              color: $title;
+              width: 100%;
+              background-color: unset;
+              transition: all 0.2s;
+  
+              &:focus {
+                border-color: $baseBlue;
+              }
+
+              &::placeholder {
+                font-size: 14px;
+                font-family: 'IBM Plex Sans', sans-serif;
+              }
+            }
+          }
+
+          button {
+            padding: 16px 0;
+            border: 0;
+            border-radius: 100px;
+            font-weight: 600;
+            background-color: $baseBlue;
+            color: $baseWhite;
+            cursor: pointer;
+            transition: all 0.2s;
+
+            &:hover {
+              background-color: $title;
+            }
+          }
+        }
+
+        .skillsListBox {
+          border: 1px solid $baseGrey;
+          margin-left: 20px;
+          width: 50%;
+          min-height: 100%;
+          overflow-y: scroll;
+          
+          ul {
+            
+            li {
+              list-style: none;
+              border-bottom: 1px solid $baseGrey;
+              padding: 10px;
+              font-size: 15px;
+              color: $title;
+              transition: all 0.3s;
+              cursor: pointer;
+              display: flex;
+              vertical-align: middle;
+              align-items: center;
+              
+              &:before {
+                content: "\2297";
+                color: $baseRed;
+                font-size: 25px;
+                margin-right: 10px;
+                margin-top: -2px;
+                transition: all 0.3s;
+              }
+
+              &:hover:before {
+                color: $baseLightGrey;
+              }
+
+              &:hover {
+                background-color: $baseBlue;
+                color: $baseWhite;
+              }
+            }
+          }
+        }
+      }
+
+      fieldset#availability {
+        padding: 0 32px;
+
+        legend {
+          padding: 0;
+          margin-bottom: 8px;
+        }
+
+        p {
+          font-size: 14px;
+          color: $baseGrey;
+          margin-bottom: 16px;
+        }
+
+        .checkbox {
+          display: flex;
+          margin-bottom: 32px;
+          justify-content: center;
+
+          input {
+            display: none;
+            
+            &:checked + label {
+              background: $baseBlue;
+            }            
+          }
+          
+          label {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 120px;
+            height: 120px;
+            margin-right: 16px;
+            background: $baseLightGrey;
+            box-shadow: 0px 0px 2px $baseLightGrey;
+            color: $baseWhite;
+            font-weight: 500px;
+            transition: all 0.3s;
+            border: 3px solid $baseWhite;
+
+            .initial {
+              font-size: 28px;
+              font-weight: 700;
+              margin-bottom: 2px;
+            }
+          }
+        }
+      }
+
+      .inputSubmit {
+        padding: 0 32px;
+        display: block;
+        width: 100%;
+
+        button {
+          width: 100%;
+          border: 0;
+          border-radius: 50px;
+          margin-bottom: 30px;
+          background: $baseBlue;
+          padding: 20px 0;
+          color: $baseWhite;
+          font-weight: 600;
+          font-size: 20px;
+          transition: all 0.3s;
+          cursor: pointer;
+
+          span {
+            margin-right: 16px;
+          }
+
+          &:hover {
+            background: $title;
+          }
+        }
+      }
+    }
+
+    .avatar {
+      width: 20%;
+
+      label {
+        margin-bottom: 20px;
+        border: 5px solid $baseWhite;
+        background-size: cover;
+        background-position: 50%;
+        cursor: pointer;
+        height: 200px;
+        width: 200px;
+        border-radius: 100px;
+        margin: 50px auto 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0px 0px 5px #ddd;
+
+        input {
+          display: none;
+        }
+
+        img {
+          opacity: 0.2;
+          width: 30px;
+          transition: all 0.3s;
+        }
+
+        &:hover img {
+          opacity: 0.8;
+          width: 30px;
+        }
+
+      }
+      
+      .has-avatar {
+        animation: fadeIn 0.5s;
+        img {
+          display: none;
+        }
+      }
+
+      span {
+        text-align: center;
+        margin: 0 auto;
+        display: block;
+        width: 200px;
+        font-size: 12px;
+        color: $baseGrey;
+      }
+    }
+  }
+}
