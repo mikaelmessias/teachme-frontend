@@ -29,7 +29,7 @@ module.exports = {
           Que tal começar agora?<br/>Entre e acesse todos os nosso recursos incríveis!
         </span>
 
-        <a class="btn block" href="http://localhost:3000/">Continuar</a>
+        <a class="btn block" href="http://localhost:3000/login">Continuar</a>
         
         <h2>Seus dados</h2>
         <p class="no-spacing">${name}</p>
