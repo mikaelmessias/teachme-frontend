@@ -1,0 +1,78 @@
+@import '../../../../css/colors.scss';
+
+#userConfirmationScreen {
+  display: block;
+  width: 100%;
+
+  .row {
+    padding: 0px 32px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .header {
+    text-align: center;
+
+    #firstRow {
+      padding: 32px;
+      display: flex;
+
+      .logo {
+        width: 100%;
+      }
+    }
+
+    #secondRow {
+      padding: 16px 0;
+      margin-bottom: 32px;
+      color: $baseWhite;
+      background-color: $baseRed;
+    }
+  }
+
+  #confirmationMessage {
+    width: 1005;
+    text-align: center;
+
+    h1 {
+      margin-bottom: 16px;
+      color: $title;
+    }
+    
+    p {
+      font-weight: 500;
+      color: $baseGrey;
+      margin-bottom: 16px;
+    }
+
+    figure {
+      display: block;
+      margin-bottom: 32px;
+    }
+    
+    a {
+      padding: 0 32px;
+      display: block;
+      width: 20%;
+      border: 0;
+      border-radius: 50px;
+      margin: 0 auto 30px auto;
+      background: $baseRed;
+      padding: 20px 0;
+      color: $baseWhite;
+      font-weight: 600;
+      font-size: 20px;
+      transition: all 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+
+      span {
+        margin-right: 16px;
+      }
+
+      &:hover {
+        background: $title;
+      }
+    }
+  }
+}
