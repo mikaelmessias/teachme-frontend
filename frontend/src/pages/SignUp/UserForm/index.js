@@ -10,7 +10,7 @@ import camera from '../../../assets/svg/camera.svg';
 import { faArrowCircleLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function FullForm(props) {
+export default function UserForm(props) {
   const role = props.location.state.role;
   const { history } = props;
 
@@ -67,7 +67,7 @@ export default function FullForm(props) {
   }
 
   return (
-    <div id="signUpFormScreen" className="container">
+    <div id="userSignUpFormScreen" className="container">
       <header className="header">
         <div id="firstRow" className="row">
           <section className="closeButton"/>

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import api from '../../services/api';
+
 import './index.scss';
 import logo from '../../assets/png/logo.png';
 import iconCadastro from '../../assets/svg/cadastro-sm.svg';
@@ -9,13 +11,15 @@ export default function SignUp ({ history }) {
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('');
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     if(role === "PADAWAN") {
       history.push('/signup/users', { email, role });
     }
     else if(role === "MENTOR") {
-      history.push('/signup/mentors', { email, role });
+      const res = await api.get('/techs');
+      
+      history.push('/signup/mentors', { email, role, techs: res.data });
     }
   }
 

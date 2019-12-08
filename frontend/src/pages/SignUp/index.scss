@@ -121,11 +121,11 @@
               }
 
               &:first-child .checkmark {
-                border: 2px solid $baseRed;
+                border: 2px solid $baseBlue;
               }
 
               &:last-child .checkmark {
-                border: 2px solid $baseBlue;
+                border: 2px solid $baseRed;
               }
 
               &:first-child:hover input ~ .checkmark,
@@ -134,11 +134,11 @@
               }
 
               &:first-child input:checked ~ .checkmark {
-                background-color: $baseRed;
+                background-color: $baseBlue;
               }
 
               &:last-child input:checked ~ .checkmark {
-                background-color: $baseBlue;
+                background-color: $baseRed;
               }
             }
 
