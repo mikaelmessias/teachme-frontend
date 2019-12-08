@@ -11,7 +11,12 @@ export default function SignUp ({ history }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    history.push('/signup', { email, role });
+    if(role === "PADAWAN") {
+      history.push('/signup/users', { email, role });
+    }
+    else if(role === "MENTOR") {
+      history.push('/signup/mentors', { email, role });
+    }
   }
 
   return (
@@ -34,8 +39,8 @@ export default function SignUp ({ history }) {
               <strong>recursos fantásticos</strong> em poucos cliques
             </p>
 
-            <form class="form" onSubmit={ handleSubmit }>
-              <div class="inputEmail" data-placeholder="Digite seu melhor email">
+            <form className="form" onSubmit={ handleSubmit }>
+              <div className="inputEmail" data-placeholder="Digite seu melhor email">
                 <input
                   id="email"
                   type="email"
@@ -58,7 +63,7 @@ export default function SignUp ({ history }) {
                 </span>
 
                 <div className="role">
-                  <label class="radio-group">Quero ser um mentor
+                  <label className="radio-group">Quero ser um mentor
                     <input
                       type="radio"
                       name="userType"
@@ -67,10 +72,10 @@ export default function SignUp ({ history }) {
                         () => setRole('MENTOR')
                       }
                     />
-                    <span class="checkmark"/>
+                    <span className="checkmark"/>
                   </label>
 
-                  <label class="radio-group">Preciso de ajuda
+                  <label className="radio-group">Preciso de ajuda
                     <input
                       type="radio"
                       name="userType"
@@ -80,7 +85,7 @@ export default function SignUp ({ history }) {
                       }
                       required
                     />
-                    <span class="checkmark"/>
+                    <span className="checkmark"/>
                   </label>
                 </div>
               </div>
