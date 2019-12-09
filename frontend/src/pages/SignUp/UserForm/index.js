@@ -57,12 +57,17 @@ export default function UserForm(props) {
       data.append('avatar', avatar);
       data.append('role', role);
 
-      const response = await api.post('/users', data);
-      const url = '/signup/users/' + response.data._id + '/confirmation';
+      try {
+        const response = await api.post('/users', data);
+        const url = '/signup/users/' + response.data._id + '/confirmation';
 
-      history.push(url, { 
-        user: response.data
-      })
+        history.push(url, { 
+          user: response.data
+        })
+      }
+      catch(err) {
+        alert("Usuário já cadastrado com esse email");
+      }
     }
   }
 

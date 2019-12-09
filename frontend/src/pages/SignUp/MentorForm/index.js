@@ -136,12 +136,17 @@ export default function MentorForm(props) {
       data.append('skills', skills);
       data.append('availableOn', availableOn);
 
-      const response = await api.post('/mentors', data);
-      const url = '/signup/mentors/' + response.data._id + '/confirmation';
+      try {
+        const response = await api.post('/mentors', data);
+        const url = '/signup/mentors/' + response.data._id + '/confirmation';
 
-      history.push(url, { 
-        mentor: response.data
-      })
+        history.push(url, { 
+          mentor: response.data
+        })
+      }
+      catch(err) {
+        alert('Usuário já cadastrado com esse email');
+      }
     }
   }
 
