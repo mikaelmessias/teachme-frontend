@@ -8,6 +8,9 @@ import MentorSignUpForm from './pages/SignUp/MentorForm';
 import MentorSignUpConfirmation from './pages/SignUp/MentorForm/Confirmation';
 import Login from './pages/Login';
 
+import DashboardUser from './pages/Dashboard/User';
+import DashboardMentor from './pages/Dashboard/Mentor';
+
 export default function Routes() {
   return (
     <BrowserRouter>
@@ -18,6 +21,8 @@ export default function Routes() {
         <Route path="/signup/mentors" exact component={MentorSignUpForm} />
         <Route path="/signup/mentors/:id/confirmation" component={MentorSignUpConfirmation} />
         <Route path="/login" component={Login} />
+        <Route path="/dashboard/user" exact component={DashboardUser} />
+        <Route path="/dashboard/mentor" exact component={DashboardMentor} />
       </Switch>
     </BrowserRouter>
   );
