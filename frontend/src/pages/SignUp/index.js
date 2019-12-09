@@ -8,6 +8,19 @@ import iconCadastro from '../../assets/svg/cadastro-sm.svg';
 import iconLogin from '../../assets/svg/login-md.svg';
 
 export default function SignUp ({ history }) {
+  const token = localStorage.getItem('token');
+  const access = localStorage.getItem('access');
+
+  if(token) {
+    if(access === "PADAWAN") {
+      history.push('/dashboard/user');
+    }
+    else if(access === "MENTOR") {
+      history.push('/dashboard/mentor');
+    }
+  }
+
+
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('');
 

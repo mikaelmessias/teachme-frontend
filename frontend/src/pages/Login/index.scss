@@ -1,0 +1,166 @@
+@import '../../css/colors.scss';
+@import '../../css/animations.scss';
+
+#loginScreen {
+  #loginForm {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .row {
+      padding: 20px 32px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .content {
+      text-align: center;
+
+      figure {
+        margin-bottom: 32px;
+      }
+
+      h1 {
+        font-size: 36px;
+        color: $title;
+        margin-bottom: 16px;
+      }
+
+      p {
+        color: $baseGrey;
+        margin-bottom: 32px;
+
+        strong {
+          color: $title;
+        }
+      }
+
+      #errorMessage {
+        color: $baseRed;
+        font-weight: 700;
+        margin-bottom: 8px;
+        display: block;
+      }
+
+      .form {
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        div{
+          position: relative;
+          width: 320px;
+          
+          &:after {
+            position: absolute;
+            left: 8px;
+            top: 8px;
+            font-size: 12px;
+            content: attr(data-placeholder);
+            pointer-events: none;
+            opacity: 0.6;
+          }
+
+          &.inputEmail {
+            margin-bottom: 16px;
+          }
+
+          &.inputPassword {
+            margin-bottom: 32px;
+          }
+
+          input {
+            padding: 32px 8px 8px 8px;
+            border: 1px solid $baseGrey;
+            border-right: 5px solid $baseGrey;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+            background-color: unset;
+            transition: all 0.2s;
+
+            &:focus {
+              border-color: $baseRed;
+            }
+          }
+        }
+
+        .inputSubmit {
+          input {
+            border: 0;
+            border-radius: 50px;
+            color: $baseWhite;
+            font-weight: 600;
+            font-size: 16px;
+            background-color: $baseRed;
+            padding: 12px 20px;
+            width: 200px;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+
+            &:hover {
+              background-color: $baseGrey;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  #signUpMessage {
+    width: 40%;
+    min-height: 100%;
+    height: 100vh;
+    padding: 0 32px;
+    background: url('../../assets/png/bg-red.png') no-repeat;
+    background-size: cover; 
+    color: $baseWhite;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    .header {
+      position: absolute;
+      top: 20px;
+    }
+
+    .content {
+      text-align: center;
+
+      h2 {
+        color: white;
+        font-size: 32px;
+        margin-bottom: 16px;
+      }
+  
+      p {
+        margin-bottom: 32px;
+      }
+  
+      figure {
+        margin-bottom: 32px;
+      }
+  
+      a {
+        display: block;
+        width: 200px; 
+        padding: 12px 20px;
+        margin: 0 auto;
+        color: $baseWhite;
+        font-weight: 600;
+        text-decoration: none;
+        border: 3px solid $baseWhite;
+        border-radius: 50px;
+        transition: all 0.3s;
+  
+        &:hover {
+          background-color: $baseRed;
+        }
+      }
+    }
+  }
+}
