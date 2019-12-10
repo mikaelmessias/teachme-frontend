@@ -18,7 +18,8 @@ module.exports = {
     let bookings = null;
 
     if(user.access === "PADAWAN") {
-      bookings = await Booking.find().where('user').equals(decoded.id);
+      bookings = await Booking.find().where('user').equals(decoded.id)
+      .populate('tech').populate('user').populate('mentor');
     }
     else if(user.access === "MENTOR") {
       const mentor = await Mentor.findOne({
@@ -27,7 +28,7 @@ module.exports = {
 
       bookings = await Booking.find({
         mentor: mentor._id
-      });
+      }).populate('tech').populate('user');
     }
 
     return res.json(bookings);
@@ -71,7 +72,7 @@ module.exports = {
     });
 
     await booking.populate('tech').populate('user').populate('mentor').execPopulate();
-    await booking.populate('mentor.user_id').execPopulate()
+    await booking.populate('mentor.user_id').execPopulate();
 
     return res.json(booking);
   },
