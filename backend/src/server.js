@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 
 const environment = require("./config/environment");
 
@@ -16,6 +17,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use('/files/avatar', express.static(path.resolve(__dirname, '..', 'uploads', 'avatar')))
 app.use(bodyParser.json());
 app.use(routes);
 

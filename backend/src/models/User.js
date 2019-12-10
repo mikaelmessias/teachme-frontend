@@ -19,6 +19,10 @@ const UserSchema = new mongoose.Schema({
     ],
     default: 'PADAWAN'
   }
+}, {
+  toJSON: {
+    virtuals: true,
+  }
 });
 
 UserSchema.pre("save", async function hashPassword(next) {
@@ -40,5 +44,9 @@ UserSchema.methods = {
     });
   }
 };
+
+UserSchema.virtual('avatar_url').get(function() {
+  return `http://localhost:3333/files/avatar/${this.avatar}`;
+});
 
 module.exports = mongoose.model('User', UserSchema);
