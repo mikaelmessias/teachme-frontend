@@ -329,7 +329,7 @@ export default function MentorForm(props) {
                 />
               </div>
 
-              <button onClick={addItem}>
+              <button type="button" onClick={addItem}>
                 Adicionar habilidade
               </button>
             </div>

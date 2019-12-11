@@ -1,0 +1,149 @@
+@import '../../../css/colors.scss';
+@import '../../../css/animations.scss';
+
+#mentorNotifications {
+  color: $title;
+  
+  .content {
+    .row {
+      flex-direction: column;
+      
+      &#title {
+        h1 {
+          &::after {
+            border-color: $baseBlue;
+          }
+        }
+      }
+
+      h2 {
+        font-size: 18px;
+        color: $undertitle;
+        font-weight: 500;
+        margin-bottom: 32px;
+      }
+
+      &#updates {
+        .table {
+          section {
+            div {
+              &.requestActions {
+                text-align: center;
+                display: block;
+                width: 100%;
+                text-transform: uppercase;
+              }
+            }
+          }
+        }
+      }
+      &.requests {
+        margin-bottom: 64px;
+
+
+        .table {          
+          section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 32px;
+            
+            div {
+              width: 100%;
+            }
+            
+            &.tableHead {
+              margin-bottom: 16px;
+
+              div {
+                &:first-child {
+                  width: 160%
+                }
+
+                color: $baseGrey;
+                text-transform: uppercase;
+                font-weight: 700;
+                font-size: 14px;
+                
+                span {
+                  margin-left: 8px;
+                }
+
+                &:last-child {
+                  text-align: center;
+                }
+              }
+            }
+
+            &.tableBody {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              padding-top: 16px;
+              padding-bottom: 16px;
+              background-color: $baseWhite;
+              border: 1px solid $baseLightGrey;
+              border-radius: 10px;
+
+              &:not(:last-child) {
+                margin-bottom: 16px;
+              }
+
+              div {
+                &:first-child {
+                  width: 160%;
+                }
+
+                &.requestUser {
+                  display: flex;
+                  flex-direction: row;
+                  align-items: center;
+
+                  figure {
+                    width: 70px;
+                    height: 70px;
+                    overflow: hidden;
+                    display: flex;
+                    border: 5px solid $baseLightGrey;
+                    border-radius: 50px;
+                  }
+
+                  span {
+                    font-weight: 600;
+                    margin-left: 16px;
+                  }
+                }
+
+                &.requestActions {
+                  display: flex;
+                  button {
+                    font-size: 32px;
+                    border: 0;
+                    width: 50%;
+                    padding: 14px 5px;
+                    margin: 0;
+                    cursor: pointer;
+                    transition: all 0.3s;    
+                    color: $baseGrey;
+                    background: unset;
+
+                    &:hover {
+                      color: $baseWhite;
+                    }
+                    &:first-child:hover {
+                      background: $baseBlue;
+                    }
+                    
+                    &:last-child:hover {
+                      background: $baseRed;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

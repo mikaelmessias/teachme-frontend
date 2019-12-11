@@ -1,0 +1,132 @@
+@import 'colors.scss';
+
+.dashboardContainer {
+  .header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $baseWhite;
+    padding: 0 32px;
+    border-bottom: 1px solid $baseLightGrey;
+
+    .logo {
+      width: 30%;
+    }
+  
+    .menu {
+      width: 40%;
+  
+      ul {
+        list-style: none;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 25px;
+  
+        a {
+          color: $title;
+          transition: all 0.3s;
+          padding: 20px 32px;
+          border-bottom: 2px solid $baseWhite;
+          transition: all 0.3s;
+          
+          &:hover {
+            border-color: $baseBlue;
+            color: $baseBlue;
+          }
+  
+          &.isActive {
+            color: $baseRed;
+          }
+  
+          &.isActive:hover {
+            border-color: $baseRed;
+          }
+        }
+  
+        a:not(:last-child) {
+          margin-right: 4px;
+        }
+      }
+    }
+  
+    .mentorInfo {
+      width: 30%;
+      display: flex;
+      align-items: center;
+      justify-content: right;
+      text-align: right;
+  
+      .info {
+        display: flex;
+        flex-direction: column;
+        margin-right: 16px;
+  
+        .mentorName {
+          font-size: 16px;
+          color: $title;
+          font-weight: 500;
+        }
+  
+        .mentorEmail {
+          font-size: 14px;
+          color: $undertitle;
+        }
+      }
+      
+      .avatar {
+        width: 50px;
+        height: 50px;
+        border: 3px solid $baseBlue;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        border-radius: 50px;
+        transition: all 0.3s;
+        
+        img {
+          transition: all 0.3s;
+        }
+  
+        &:hover {
+          border-color: $baseRed;
+          cursor: pointer;
+  
+          img {
+            opacity: 0.6;
+          }
+        }
+      }
+    }
+  }
+
+  .content {
+    width: 100%;
+    padding: 0 32px;
+
+    .row {
+      display: flex;
+      
+      &#title {
+        justify-content: center;
+        align-items: center;
+
+        h1 {
+          font-size: 42px;
+          margin: 42px 0;
+
+          &:after {
+            content: "";
+            display: block;
+            width: 60%;
+            margin: 4px auto auto;
+            border: 3px solid $undertitle;
+          }
+        }
+      }
+    }
+  }
+}
