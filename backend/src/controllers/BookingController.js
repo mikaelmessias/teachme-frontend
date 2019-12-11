@@ -19,7 +19,7 @@ module.exports = {
 
     if(user.access === "PADAWAN") {
       bookings = await Booking.find().where('user').equals(decoded.id)
-      .populate('tech').populate('user').populate('mentor');
+      .populate('tech').populate('user').populate('mentor').populate('updatedBy');
     }
     else if(user.access === "MENTOR") {
       const mentor = await Mentor.findOne({
@@ -28,7 +28,7 @@ module.exports = {
 
       bookings = await Booking.find({
         mentor: mentor._id
-      }).populate('tech').populate('user');
+      }).populate('tech').populate('user').populate('updatedBy');
     }
 
     return res.json(bookings);
@@ -57,9 +57,9 @@ module.exports = {
       });
     }
 
-    const { date, hour } = req.body
+    const { date } = req.body
 
-    if(await Booking.findOne({ date, hour, mentor})) {
+    if(await Booking.findOne({ date, mentor})) {
       return res.status(400).json({
         error: 'There is a booked attendance for the same date and mentor'
       });
@@ -68,6 +68,7 @@ module.exports = {
     const booking = await Booking.create({
       ...req.body,
       ...req.params,
+      updatedBy: decoded.id,
       user: decoded.id
     });
 
@@ -87,16 +88,6 @@ module.exports = {
       });
     }
 
-    const mentor = await Mentor.findOne({
-      user_id: decoded.id
-    });
-
-    if(!mentor) {
-      return res.status(403).json({
-        error: "Access not allowed for this user"
-      })
-    }
-
     if(!await Booking.findById(booking_id)) {
       return res.status(404).json({
         error: "Booking not found"
@@ -105,11 +96,13 @@ module.exports = {
 
     const update = await Booking.updateOne({
       _id: booking_id,
-      mentor: mentor._id,
-    }, req.body);
+    }, { 
+      ...req.body,
+      updatedBy: decoded.id
+    });
 
     const booking = await Booking.findById(booking_id);
 
-    return res.json({ booking, update });
+    return res.json(booking);
   }
 }

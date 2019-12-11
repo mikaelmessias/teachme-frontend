@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 
 const BookingSchema = new mongoose.Schema({
-  date: String,
-  hour: String,
+  date: Date,
   duration: Number,
   tech: {
     type: mongoose.Schema.Types.ObjectId,
@@ -25,7 +24,13 @@ const BookingSchema = new mongoose.Schema({
       'COMPLETED'
     ],
     default: 'UNCONFIRMED'
-  }
+  },
+  updatedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+}, {
+  timestamps: true
 });
 
 module.exports = mongoose.model('Booking', BookingSchema);
