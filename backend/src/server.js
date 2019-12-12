@@ -18,6 +18,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/files/avatar', express.static(path.resolve(__dirname, '..', 'uploads', 'avatar')))
+app.use('/files/thumbnail', express.static(path.resolve(__dirname, '..', 'uploads', 'thumbnail')))
 app.use(bodyParser.json());
 app.use(routes);
 
