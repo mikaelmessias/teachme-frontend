@@ -45,6 +45,8 @@ module.exports = {
     mentor.skills.push(req.body);
     mentor.save();
 
+    await mentor.populate('user_id').populate('skills.tech').execPopulate();
+
     return res.json(mentor);
   },
 
@@ -60,6 +62,8 @@ module.exports = {
     }, { safe: true, multi:true }, (err, raw) => {});
 
     const mentor = await Mentor.findOne({ user_id: decoded.id });
+
+    await mentor.populate('user_id').populate('skills.tech').execPopulate();
 
     return res.json(mentor);
   }
