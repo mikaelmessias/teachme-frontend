@@ -9,7 +9,6 @@ import './index.scss';
 
 import { faBell, faCalendarCheck, faIdCard, faCalendar, faClock, faHourglass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { basePort } from 'portfinder';
 
 export default function DashboardMentor({ history }) {
   const token = localStorage.getItem('token');
@@ -79,7 +78,7 @@ export default function DashboardMentor({ history }) {
     })
     .then((response) => {
       setRequests(requests.filter(booking =>
-        booking._id !== response.data._id
+        booking.status !== response.data.status
       ));
 
       if(newStatus === 'CANCELLED') {
