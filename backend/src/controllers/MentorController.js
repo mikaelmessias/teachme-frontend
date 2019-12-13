@@ -1,11 +1,12 @@
 const Mentor = require('../models/Mentor');
 const User = require('../models/User');
 const Tech = require('../models/Tech');
+const mail = require('../config/mail/mail');
 
 module.exports = {
   async index(req, res) {
     const { decoded } = req;
-
+    
     if(!await User.findOne({ _id: decoded.id })) {
       return res.status(404).json({
         error: "User not found"
@@ -17,7 +18,7 @@ module.exports = {
         error: "Tech paramater expected"
       });
     }
-    
+
     const tech = await Tech.findOne({
       description: req.query.tech
     });
@@ -28,8 +29,8 @@ module.exports = {
       });
     }
 
-    const mentors = await Mentor.find().where('skills.tech').equals(tech._id);
-
+    const mentors = await Mentor.find().where('skills.tech').equals(tech._id).populate('user_id').populate('skills.tech');
+    
     if(mentors.length == 0) {
       return res.status(404).json({
         error: "No mentors found for given paramater"
@@ -99,6 +100,8 @@ module.exports = {
     }
 
     await mentor.populate('user_id').populate('skills.tech').execPopulate();
+
+    mail.send("welcome", user);
 
     return res.json(mentor);
   }
