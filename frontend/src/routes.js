@@ -9,6 +9,10 @@ import MentorSignUpConfirmation from './pages/SignUp/MentorForm/Confirmation';
 import Login from './pages/Login';
 
 import DashboardUser from './pages/Dashboard/User';
+import UserSchedule from './pages/Dashboard/User/Schedule';
+import UserSearch from './pages/Dashboard/User/Search';
+import UserProfile from './pages/Dashboard/User/Profile';
+import UserProfileEdit from './pages/Dashboard/User/Profile/Edit';
 
 import DashboardMentor from './pages/Dashboard/Mentor';
 import MentorSchedule from './pages/Dashboard/Mentor/Schedule';
@@ -26,8 +30,12 @@ export default function Routes() {
         <Route path="/signup/mentors" exact component={MentorSignUpForm} />
         <Route path="/signup/mentors/:id/confirmation" component={MentorSignUpConfirmation} />
         <Route path="/login" component={Login} />
-
+        
         <Route path="/dashboard/user" exact component={DashboardUser} />
+        <Route path="/dashboard/user/schedule" component={UserSchedule} />
+        <Route path="/dashboard/user/search" component={UserSearch} />
+        <Route path="/dashboard/user/profile" exact component={UserProfile} />
+        <Route path="/dashboard/user/profile/edit" exact component={UserProfileEdit} />
 
         <Route path="/dashboard/mentor" exact component={DashboardMentor} />
         <Route path="/dashboard/mentor/schedule" component={MentorSchedule} />

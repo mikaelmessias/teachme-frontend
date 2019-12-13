@@ -1,0 +1,155 @@
+@import '../../../../css/colors.scss';
+
+#userSchedule {
+  color: $title;
+  
+  .content {
+    .row {
+      flex-direction: column;
+      
+      &#title {
+        h1 {
+          &::after {
+            border-color: $baseRed;
+          }
+        }
+      }
+
+      &#filters {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        
+        button {
+          border: 0;
+          border-radius: 50px;
+          padding: 8px 16px;
+          font-weight: 600;
+          font-size: 15px;
+          background-color: $baseLightGrey;
+          transition: all 0.3s;
+          cursor: pointer;
+
+          &:hover {
+            color: $baseWhite;
+            background-color: $baseGrey;
+          }
+
+          &.filterActive {
+            color: $baseWhite;
+            background-color: $baseBlue;
+
+            &:hover {
+              opacity: 0.8;
+            }
+          }
+
+          &:not(:last-child) {
+            margin-right: 32px;
+          }
+        }
+      }
+
+      &#schedule {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-top: 32px;
+        justify-content: center;
+        
+        div {
+          &.box {
+            width: 250px;
+            margin-right: 32px;
+            margin-bottom: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            background-color: $baseWhite;
+            border: 1px solid $undertitle;
+            box-shadow: 0px 0px 5px $baseLightGrey;
+
+            figure {
+              border: 3px solid $baseLightGrey;
+              border-radius: 50px;
+              width: 100px;
+              height: 100px;
+              display: flex;
+              justify-content: center;
+              overflow: hidden;
+              margin: 32px auto auto;
+            }
+
+            span {
+              color: $baseGrey;
+              &.reqUser {
+                margin: 16px 0;
+                font-size: 18px;
+                font-weight: 600;
+                color: $baseGrey;
+
+                &:after {
+                  content: "";
+                  display: block;
+                  margin: 10px auto auto;
+                  width: 30%;
+                  border: 1px solid $undertitle;
+                }
+              }
+
+              &.reqDate, &.reqHour {
+                margin-bottom: 8px;
+              }
+
+              &.reqDuration {
+                margin-bottom: 32px;
+              }
+
+              &.reqDate, &.reqHour, &.reqDuration  {
+                width: 120px;
+                span {
+                  margin-left: 10px;
+                }
+              }
+            }
+
+            .buttonGroup {
+              display: flex;
+              width: 100%;
+
+              button {
+                width: 100%;
+                color: $baseWhite;
+                font-weight: 600;
+                border: 0;
+                padding: 10px 0;
+                transition: all 0.3s;
+                cursor: pointer;
+                
+                &[name="cancelButton"] {
+                  border-bottom-left-radius: 15px;
+                  border-bottom-right-radius: 15px;
+                  background-color: $baseRed;
+                }
+
+                &:hover {
+                  background-color: $title;
+                }
+              }
+
+              &.buttonGroupIsVisible {
+                display: initial;
+              }
+
+              &.buttonGroupIsNotVisible {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

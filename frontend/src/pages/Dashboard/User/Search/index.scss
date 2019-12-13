@@ -1,0 +1,392 @@
+@import '../../../../css/colors.scss';
+
+#userSearch {
+  .content {
+    form {
+      display: flex;
+      width: 100%;
+      box-shadow: 0 0 5px $baseLightGrey;
+      margin-bottom: 64px;
+
+      input {
+        width: 100%;
+        border: 0;
+        padding: 18px;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        font-size: 18px;
+
+        &::placeholder {
+          font-style: italic;
+        }
+      }
+      
+      button {
+        width: 20%;
+        border: 0;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        background-color: $baseBlue;
+        color: $baseWhite;
+        font-weight: 600;
+        transition: all 0.3s;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $title;
+        }
+      }
+    }
+    
+    h2 {
+      color: $baseGrey;
+      margin-bottom: 64px;
+
+      &:after {
+        content: "";
+        display: block;
+        margin-top: 12px;
+        width: 12%;
+        border: 3px solid $baseGrey;
+      }
+    }
+
+    #results {
+      display: none;
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin-top: 32px;
+      justify-content: center;
+
+      &.isVisible  {
+        display: flex;
+      }
+      
+      div {
+        &.box {
+          width: 45%;
+          margin-right: 32px;
+          margin-bottom: 32px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          border-radius: 15px;
+          background-color: $baseWhite;
+          border: 1px solid $undertitle;
+          box-shadow: 0px 0px 5px $baseLightGrey;
+
+          figure {
+            border: 3px solid $baseLightGrey;
+            border-radius: 50px;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            overflow: hidden;
+            justify-content: center;
+            margin: 32px auto 16px auto;
+          }
+
+          span {
+
+            &.resUser {
+              font-size: 20px;
+              font-weight: 600;
+              color: $title;
+              margin-bottom: 16px;
+            }
+
+            &.borderTop {
+              margin-bottom: 16px;
+              text-align: center;
+              color: $baseGrey;
+                                            
+              &:before {
+                content: "";
+                display: block;
+                margin: 0 auto;
+                width: 20%;
+                margin-bottom: 16px;
+                border: 2px solid $baseGrey
+              }
+
+              h3 {
+                font-size: 12px;
+                margin-bottom: 8px;
+                text-transform: uppercase;
+              }
+
+              #techs {
+                display: flex;
+                
+                figure {
+                  width: 40px;
+                  height: 40px;
+                  display: flex;
+                  overflow: hidden;
+                  justify-content: center;
+                  margin: 16px auto 16px auto;
+
+                  &:not(:last-child) {
+                    margin-right: 16px;
+                  }
+                }
+              }
+
+              #days {
+                margin-top: 16px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+        
+                .checkbox {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  flex-wrap: wrap;
+                  width: 100%;
+        
+                  div {
+                    display: none;
+                    
+                    &.isActive + label {
+                      color: #fff;
+                      background: $baseBlue;
+                    }            
+                  }
+                  
+                  label {
+                    &:not(:last-child) {
+                      margin-right: 15px;
+                    }
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    width: 60px;
+                    height: 60px;
+                    margin-bottom: 20px;
+                    background: $baseLightGrey;
+                    box-shadow: 0px 0px 2px $baseLightGrey;
+                    color: $baseWhite;
+                    font-weight: 500px;
+                    transition: all 0.3s;
+                    border: 3px solid $baseWhite;
+        
+                    .initial {
+                      font-size: 20px;
+                      font-weight: 700;
+                      margin-bottom: 2px;
+                    }
+
+                    .full {
+                      font-size: 12px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          .buttonGroup {
+            display: flex;
+            width: 100%;
+
+            button {
+              width: 100%;
+              color: $baseWhite;
+              font-weight: 600;
+              border: 0;
+              padding: 10px 0;
+              transition: all 0.3s;
+              cursor: pointer;
+              
+              &[name="requestButton"] {
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;
+                background-color: $baseRed;
+              }
+
+              &:hover {
+                background-color: $title;
+              }
+            }
+
+            #bookingForm {
+              display: none;
+              justify-content: center;
+              align-items: center;
+              position: absolute;
+              top: 0;
+              left: 0;
+              background-color: rgba(0,0,0,0.6);
+              height: 160%;
+              width: 100%;
+              
+              &.isVisible {
+                display: flex;
+              }
+              
+              &.isInvisible {
+                display: none;
+              }
+  
+              form {
+                position: absolute;
+                top: 400px;
+                width: 500px;
+                padding: 32px;
+                box-shadow: 0 0 10px $baseGrey;
+                border-radius: 15px;
+                background-color: $baseLightGrey;
+                display: flex;
+                flex-direction: column;
+  
+                header {
+                  display: flex;
+                  align-items: center;
+                  margin-bottom: 16px;
+                  
+                  h3 {
+                    width: 100%;
+                  }
+  
+                  button {
+                    display: flex;
+                    width: 10%;
+                    justify-content: center;
+                    align-items: center;
+                    border: 0;
+                    transition: all 0.2s;
+                    background-color: $baseRed;
+                    border-radius: 100px;
+                    color: $baseWhite;
+                    padding: 7px 10px;
+                    cursor: pointer;;
+  
+                    &:hover {
+                      background-color: $baseGrey;
+                    }
+                  }
+                }
+
+                p {
+                  margin-bottom: 16px;
+                }
+  
+                .bookingInfo {
+                  display: flex;
+                  flex-direction: column;
+                  width: 100%;
+        
+                  .select {
+                    position: relative;
+                    width: 100%;
+                    margin-bottom: 16px;
+                    
+                    &:after {
+                      position: absolute;
+                      left: 8px;
+                      top: 8px;
+                      font-size: 12px;
+                      content: attr(data-placeholder);
+                      pointer-events: none;
+                      opacity: 0.6;
+                    }
+                    
+                    div:after {
+                      content: "\25bc";
+                      color: #888;
+                      padding: 20px 28px;
+                      position: absolute;
+                      right: 0;
+                      top: 0;
+                      text-align: center;
+                      pointer-events: none;
+                    }
+                    
+                    select {
+                      font-size: 16px;
+                      padding: 32px 8px 8px 8px;
+                      border: 1px solid $baseGrey;
+                      border-right: 5px solid $baseGrey;
+                      border-radius: 4px;
+                      color: $title;
+                      width: 100%;
+                      background-color: unset;
+                      transition: all 0.2s;
+                      appearance: none;
+          
+                      &:focus {
+                        border-color: $baseBlue;
+                      }
+        
+                      &::placeholder {
+                        font-size: 14px;
+                        font-family: 'IBM Plex Sans', sans-serif;
+                      }
+                    }
+                  }
+        
+                  .input {
+                    position: relative;
+                    width: 100%;
+                    margin-bottom: 32px;
+                    
+                    &:after {
+                      position: absolute;
+                      left: 8px;
+                      top: 8px;
+                      font-size: 12px;
+                      content: attr(data-placeholder);
+                      pointer-events: none;
+                      opacity: 0.6;
+                    }
+          
+                    input {
+                      padding: 32px 8px 8px 8px;
+                      border: 1px solid $baseGrey;
+                      border-right: 5px solid $baseGrey;
+                      border-radius: 4px;
+                      color: $title;
+                      width: 100%;
+                      background-color: unset;
+                      transition: all 0.2s;
+          
+                      &:focus {
+                        border-color: $baseBlue;
+                      }
+        
+                      &::placeholder {
+                        font-size: 14px;
+                        font-family: 'IBM Plex Sans', sans-serif;
+                      }
+                    }
+                  }
+        
+                  button {
+                    padding: 16px 0;
+                    border: 0;
+                    border-radius: 100px;
+                    font-weight: 600;
+                    background-color: $baseBlue;
+                    color: $baseWhite;
+                    cursor: pointer;
+                    transition: all 0.2s;
+        
+                    &:hover {
+                      background-color: $title;
+                    }
+                  }
+                }
+              }
+            }
+
+
+          }
+        }
+      }
+    }
+  }
+}
