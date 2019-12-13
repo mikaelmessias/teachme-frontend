@@ -8,15 +8,33 @@
 
 Projeto desenvolvido para a disciplina de Tecnologia em Desenvolvimento de Sistemas da UTFPR (2019.2).
 
-O Teach.me é uma plataforma desenvolvida com o objetivo de unir desenvolvedores experientes em tecnologias da áreas de programação/desenvolvimento à pessoas que precisam de mentoria nessas mesmas áreas.
+O Teach.me é uma plataforma desenvolvida com o objetivo de unir estudantes de computação com profissionais experientes em diversas tecnologias e linguagens de programação.
 
-# Meta
+## Instalação e configuração
+
+### Clone o repositório remoto
+
+``git clone https://github.com/mikaelmessias/teachme.git``
+
+### Instale as dependências 
+
+``yarn install``
+
+### Configure as variáveis de ambiente em backend/.env
+DATABASE={string de conexão com o MongoDB}
+
+PORT={porta onde será executada a instância do servidor backend}
+
+### Inicie o servidor dentro da pasta backend/
+``yarn dev``
+
+### Inicie o projeto CRA dentro da pasta frontend/
+``yarn start``
+
+## Meta
 
 Mikael P. Messias - [devmikecry](https://twitter.com/devmikecry) - mikaelpmessias@gmail.com
 
 Distribuído sob a licença MIT. Consulte LICENSE para obter mais informações.
 
 https://github.com/mikaelmessias/teachme
-
-
-
