@@ -1,0 +1,96 @@
+@import 'colors.scss';
+
+.profile {
+  color: $title;
+  
+  .content {
+    background-color: $baseWhite;
+    padding-top: 64px;
+    
+    .row {
+      flex-direction: column;
+      
+      &#profileCard {
+        display: flex;
+        flex-direction: row;
+
+        figure {
+          width: 240px;
+          height: 240px;
+          overflow: hidden;
+          display: flex;
+          justify-content: center;
+          border: 5px solid $baseBlue;
+          border-radius: 250px;
+          margin-bottom: 64px;
+        }
+
+        .userInfo {
+          margin-left: 45px;
+          display: flex;
+          flex-direction: column;
+          width: 80%;
+          color: $title;
+          
+          h2 {
+            font-size: 42px;
+          }
+
+          .section {
+            display: flex;
+            flex-direction: row;
+            margin-top: 32px;
+            width: 100%;
+
+            .sectionData {
+              display: flex;
+              flex-direction: column;
+              width: 100%;
+
+              span{
+                &:first-child {
+                  font-size: 13px;
+                  font-weight: 700;
+                  color: $baseBlue;
+                  text-transform: uppercase;
+                  margin-bottom: 8px;
+                }
+              }
+            }
+          }
+        }
+      }
+
+    }
+
+    #buttons {
+      button {
+        border: 0;
+        padding: 20px 32px;
+        background-color: unset;
+        font-weight: 600;
+        color: $undertitle;
+        cursor: pointer;
+        transition: all 0.3s;
+        border-bottom: 2px solid $baseWhite;
+        margin-right: 5px;
+        
+        &.isActive {
+          color: $baseRed;
+          border-bottom: 2px solid $baseRed;
+
+          &.isActive:hover {
+            opacity: 0.6;
+            color: $baseRed;
+            border-bottom: 2px solid $baseRed;
+          }
+        }
+
+        &:hover {
+          color: $baseBlue;
+          border-bottom: 2px solid $baseBlue;
+        }
+      }
+    }
+  }
+}

@@ -134,13 +134,13 @@ export default function DashboardMentor({ history }) {
           </ul>
         </nav>
 
-        <div className="mentorInfo">
+        <div className="userInfo">
           <div className="info">
-            <span className="mentorName">
+            <span className="userName">
               {user.name}
             </span>
 
-            <span className="mentorEmail">
+            <span className="userEmail">
               {user.email}
             </span>
           </div>

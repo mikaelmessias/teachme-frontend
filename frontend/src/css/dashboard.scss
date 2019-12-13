@@ -52,7 +52,7 @@
       }
     }
   
-    .mentorInfo {
+    .userInfo {
       width: 30%;
       display: flex;
       align-items: center;
@@ -64,13 +64,13 @@
         flex-direction: column;
         margin-right: 16px;
   
-        .mentorName {
+        .userName {
           font-size: 16px;
           color: $title;
           font-weight: 500;
         }
   
-        .mentorEmail {
+        .userEmail {
           font-size: 14px;
           color: $undertitle;
         }

@@ -1,0 +1,158 @@
+@import '../../../../../css/colors.scss';
+
+#mentorProfileAvailability {
+  .contentBox {
+    padding: 0 32px;
+    margin-top: 32px;
+
+    .availabilityBox {
+      .title {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        h3 {
+          color: $baseGrey;
+          font-size: 22px;
+          width: 100%;
+        }
+
+        button {
+          width: 40px;
+          height: 40px;
+          color: $baseWhite;
+          background-color: $baseRed;
+          border: 0;
+          border-radius: 100px;
+          transition: all 0.3s;
+
+          &:hover {
+            background-color: $baseGrey;
+          }
+
+          &.isActive {
+            width: 130px;
+            background-color: $baseBlue;
+
+            &:hover {
+              background-color: $title;
+            }
+
+            #btnEditMessage {
+              margin-left: 10px;
+              font-weight: 600;
+            }
+          }
+        }
+      }
+      
+      #days {
+        margin-top: 32px;
+        margin-bottom: 232px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        
+        &.isVisible {
+          display: flex;
+        }
+        
+        &.isInvisible {
+          display: none;
+        }
+
+        .checkbox {
+          display: flex;
+          margin-bottom: 32px;
+          justify-content: center;
+          flex-wrap: wrap;
+          width: 100%;
+
+          div {
+            display: none;
+            
+            &.isActive + label {
+              background: $baseBlue;
+            }            
+          }
+          
+          label {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 150px;
+            height: 150px;
+            margin-right: 16px;
+            background: $baseLightGrey;
+            box-shadow: 0px 0px 2px $baseLightGrey;
+            color: $baseWhite;
+            font-weight: 500px;
+            transition: all 0.3s;
+            border: 3px solid $baseWhite;
+
+            .initial {
+              font-size: 28px;
+              font-weight: 700;
+              margin-bottom: 2px;
+            }
+          }
+        }
+      }
+      
+      #daysEditable {
+        margin-top: 32px;
+        margin-bottom: 232px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        
+        &.isVisible {
+          display: flex;
+        }
+        
+        &.isInvisible {
+          display: none;
+        }
+
+        .checkbox {
+          display: flex;
+          margin-bottom: 32px;
+          justify-content: center;
+          flex-wrap: wrap;
+          width: 100%;
+
+          input {
+            display: none;
+            
+            &:checked + label {
+              background: $baseBlue;
+            }            
+          }
+          
+          label {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 150px;
+            height: 150px;
+            margin-right: 16px;
+            background: $baseLightGrey;
+            box-shadow: 0px 0px 2px $baseLightGrey;
+            color: $baseWhite;
+            font-weight: 500px;
+            transition: all 0.3s;
+            border: 3px solid $baseWhite;
+
+            .initial {
+              font-size: 28px;
+              font-weight: 700;
+              margin-bottom: 2px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

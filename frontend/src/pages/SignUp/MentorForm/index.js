@@ -145,7 +145,7 @@ export default function MentorForm(props) {
         })
       }
       catch(err) {
-        alert('Usuário já cadastrado com esse email');
+        console.log(err);
       }
     }
   }

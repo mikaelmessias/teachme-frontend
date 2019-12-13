@@ -1,0 +1,122 @@
+@import '../../../../../css/colors.scss';
+
+#mentorProfileEdit {
+  .contentBox {
+    width: 80%;
+    margin: 50px auto auto;
+    
+    form {
+      .formRow {
+        display: flex;
+        margin-bottom: 32px;
+        border: 0;
+
+        .input {
+          position: relative;
+          width: 100%;
+          
+          &:not(:first-child) {
+            margin-left: 16px;
+          }
+          &:not(:last-child) {
+            margin-right: 16px;
+          }
+          
+          &:after {
+            position: absolute;
+            left: 8px;
+            top: 8px;
+            font-size: 12px;
+            content: attr(data-placeholder);
+            pointer-events: none;
+            opacity: 0.6;
+          }
+
+          input {
+            padding: 32px 8px 8px 8px;
+            border: 1px solid $baseGrey;
+            border-right: 5px solid $baseGrey;
+            border-radius: 4px;
+            color: $title;
+            width: 100%;
+            background-color: unset;
+            transition: all 0.2s;
+
+            &:focus {
+              border-color: $baseBlue;
+            }
+
+            &::placeholder {
+              font-size: 14px;
+              font-family: 'IBM Plex Sans', sans-serif;
+            }
+          }
+        }
+
+        .textarea {
+          position: relative;
+          width: 100%;
+          margin: 0px;
+          
+          &:after {
+            position: absolute;
+            left: 8px;
+            top: 8px;
+            font-size: 12px;
+            content: attr(data-placeholder);
+            pointer-events: none;
+            opacity: 0.6;
+          }
+
+          textarea {
+            padding: 32px 8px 8px 8px;
+            border: 1px solid $baseGrey;
+            border-right: 5px solid $baseGrey;
+            border-radius: 4px;
+            font-family: 'IBM Plex Sans', sans-serif;
+            width: 100%;
+            background-color: unset;
+            transition: all 0.2s;
+            resize: none;
+            color: $title;
+
+            &:focus {
+              border-color: $baseBlue;
+            }
+
+            &::placeholder {
+              font-family: 'IBM Plex Sans', sans-serif;
+            }
+          }
+        }
+      }
+
+      .inputSubmit {
+        display: block;
+        width: 100%;
+
+        button {
+          width: 100%;
+          border: 0;
+          border-radius: 10px;
+          margin-bottom: 30px;
+          background: $baseBlue;
+          padding: 15px 0;
+          color: $baseWhite;
+          font-weight: 600;
+          font-size: 20px;
+          transition: all 0.3s;
+          cursor: pointer;
+
+          span {
+            margin-right: 16px;
+          }
+
+          &:hover {
+            background: $title;
+          }
+        }
+      }
+    }
+  }
+}

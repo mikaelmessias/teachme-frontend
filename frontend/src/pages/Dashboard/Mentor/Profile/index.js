@@ -5,6 +5,7 @@ import logo from '../../../../assets/png/logo.png';
 import logoFS from '../../../../assets/png/logoFullsize.png';
 
 import './index.scss';
+import '../../../../css/profile.scss';
 
 import { faBell, faCalendarCheck, faIdCard, faPencilAlt, faPlus, faTimes, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -128,7 +129,7 @@ export default function MentorProfile({ history }) {
   }
     
   return !(loadingMentor || loadingTechs) ? (
-    <div id="mentorProfile" className="dashboardContainer">
+    <div id="mentorProfile" className="dashboardContainer profile">
       <header className="header">
         <figure className="logo">
           <img src={logo} alt="Logo"/>
@@ -148,13 +149,13 @@ export default function MentorProfile({ history }) {
           </ul>
         </nav>
 
-        <div className="mentorInfo">
+        <div className="userInfo">
           <div className="info">
-            <span className="mentorName">
+            <span className="userName">
               {user.name}
             </span>
 
-            <span className="mentorEmail">
+            <span className="userEmail">
               {user.email}
             </span>
           </div>
@@ -205,9 +206,17 @@ export default function MentorProfile({ history }) {
             Habilidades
           </button>
 
-          <button id="availabilityButton" type="button">
-            Disponibilidade
-          </button>
+          <a href="/dashboard/mentor/profile/availability">
+            <button id="availabilityButton" type="button">
+              Disponibilidade
+            </button>
+          </a>
+
+          <a href="/dashboard/mentor/profile/edit">
+            <button id="editButton" type="button">
+              Editar perfil
+            </button>
+          </a>
         </div>
       </div>
 
