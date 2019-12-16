@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../../../../services/api';
 
+import moment from 'moment';
+
 import logo from '../../../../../assets/png/logo.png';
 import logoFS from '../../../../../assets/png/logoFullsize.png';
 
@@ -176,7 +178,7 @@ export default function MentorProfileAvailability({ history }) {
 
               <div className="sectionData">
                 <span>Data de nascimento</span>
-                <span>{user.birthdate}</span>
+                <span>{moment(user.birthdate).format('DD/MM/YYYY')}</span>
               </div>
             </div>
 

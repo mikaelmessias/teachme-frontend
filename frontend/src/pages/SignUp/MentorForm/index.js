@@ -197,7 +197,7 @@ export default function MentorForm(props) {
               <div className="input" data-placeholder="Digite sua data de nascimento">
                 <input
                 id="birthdate"
-                type="text"
+                type="date"
                 value={ birthdate }
                 onChange= {
                   event => setBirthdate(event.target.value)

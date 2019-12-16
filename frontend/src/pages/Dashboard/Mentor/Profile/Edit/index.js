@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../../../../services/api';
 
+import moment from 'moment';
+
 import logo from '../../../../../assets/png/logo.png';
 import logoFS from '../../../../../assets/png/logoFullsize.png';
 
@@ -33,7 +35,7 @@ export default function MentorProfileEdit({ history }) {
   const [loadingUser, setLoadingUser] = useState(true);
 
   const [name, setName] = useState('');
-  const [birthdate, setBirthdate] = useState('');
+  const [birthdate, setBirthdate] = useState(Date);
   const [address, setAddress] = useState('');
   const [cpf, setCPF] = useState('');
   const [bio, setBio] = useState('');
@@ -66,7 +68,7 @@ export default function MentorProfileEdit({ history }) {
     const userData = new FormData();
 
     userData.append('name', name);
-    userData.append('birthdate', birthdate);
+    userData.append('birthdate', birthdate + 'T00:00:00-0300');
     userData.append('address', address);
     userData.append('cpf', cpf);
     userData.append('description', bio);
@@ -144,7 +146,7 @@ export default function MentorProfileEdit({ history }) {
 
               <div className="sectionData">
                 <span>Data de nascimento</span>
-                <span>{user.birthdate}</span>
+                <span>{moment(user.birthdate).format('DD/MM/YYYY')}</span>
               </div>
             </div>
             <div className="section">
@@ -193,10 +195,9 @@ export default function MentorProfileEdit({ history }) {
             <div className="input" data-placeholder="Digite sua data de nascimento">
               <input
               id="birthdate"
-              type="text"
-              defaultValue={ birthdate }
+              type="date"
+              defaultValue = { moment(birthdate).format('YYYY-MM-DD') }
               onChange={ e => setBirthdate(e.target.value) }
-              placeholder="DD/MM/AAAA"
               required
               />
             </div>
