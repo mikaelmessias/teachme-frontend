@@ -32,6 +32,12 @@ export default function UserProfileEdit({ history }) {
   const [user, setUser] = useState({});
   const [loadingUser, setLoadingUser] = useState(true);
 
+  const [name, setName] = useState('');
+  const [birthdate, setBirthdate] = useState('');
+  const [address, setAddress] = useState('');
+  const [cpf, setCPF] = useState('');
+  const [bio, setBio] = useState('');
+
   useEffect(() => {
     const token = localStorage.getItem('token');
 
@@ -41,19 +47,18 @@ export default function UserProfileEdit({ history }) {
       })
       .then((response) => {
         setUser(response.data);
+        setName(response.data.name);
+        setBirthdate(response.data.birthdate);
+        setAddress(response.data.address);
+        setCPF(response.data.cpf);
+        setBio(response.data.description);
       })
-      .catch(err => alert(err.message))
+      .catch(err => console.log(err))
       .finally(_ => setLoadingUser(false));
     }
 
     loadUser();
   }, []);
-
-  const [name, setName] = useState(user.name);
-  const [birthdate, setBirthdate] = useState(user.birthdate);
-  const [address, setAddress] = useState(user.address);
-  const [cpf, setCPF] = useState(user.cpf);
-  const [bio, setBio] = useState(user.bio);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -66,13 +71,19 @@ export default function UserProfileEdit({ history }) {
     userData.append('cpf', cpf);
     userData.append('description', bio);
 
-    await api.put('/users', userData, {headers: {authorization: token}})
-    .then(res => console.log(res))
-    .catch(err => alert(err.message))
-    .finally()
+    await api.put('/users', userData, {
+      headers: { authorization: token }
+    })
+    .then(res => setUser(res.data))
+    .catch(err => console.log(err))
+    .finally();
   }
 
-  return !(loadingUser) ? (
+  return (loadingUser) ? (
+    <div id="loadingPage">
+      <img src={logoFS} alt="Logo"/>
+    </div>
+  ) : (
     <div id="userProfileEdit" className="dashboardContainer profile">
       <header className="header">
         <figure className="logo">
@@ -162,10 +173,8 @@ export default function UserProfileEdit({ history }) {
               <input
               id="name"
               type="text"
-              // value = {user.name}
-              onChange= {
-                event => setName(event.target.value)
-              }
+              defaultValue={ name }
+              onChange={ e => setName(e.target.value) }
               placeholder="Ciclano da Silva"
               required
               autoFocus
@@ -176,10 +185,8 @@ export default function UserProfileEdit({ history }) {
               <input
               id="birthdate"
               type="text"
-              // value={ user.birthdate }
-              onChange= {
-                event => setBirthdate(event.target.value)
-              }
+              defaultValue={ birthdate }
+              onChange= { e => setBirthdate(e.target.value) }
               placeholder="DD/MM/AAAA"
               required
               />
@@ -191,10 +198,8 @@ export default function UserProfileEdit({ history }) {
               <input
               id="address"
               type="text"
-              // value = {user.address}
-              onChange= {
-                event => setAddress(event.target.value)
-              }
+              defaultValue={ address }
+              onChange={ e => setAddress(e.target.value) }
               placeholder="São Paulo, SP"
               required
               />
@@ -204,10 +209,8 @@ export default function UserProfileEdit({ history }) {
               <input
               id="cpf"
               type="text"
-              // value={user.cpf}
-              onChange= {
-                event => setCPF(event.target.value)
-              }
+              defaultValue={ cpf }
+              onChange= { e => setCPF(e.target.value) }
               placeholder="Digite somente números"
               required
               />
@@ -218,10 +221,8 @@ export default function UserProfileEdit({ history }) {
             <div className="textarea" data-placeholder="Escreva aqui uma boa descrição de seus interesses e paixões">
               <textarea
               id="bio"
-              // value = {user.description}
-              onChange= {
-                event => setBio(event.target.value)
-              }
+              defaultValue={ bio }
+              onChange={ e => setBio(e.target.value) }
               rows="5"
               placeholder="Essa é sua oportunidade de falar um pouco sobre você"
               required
@@ -239,10 +240,6 @@ export default function UserProfileEdit({ history }) {
         </form>
       </div>
       
-    </div>
-  ) : (
-    <div id="loadingPage">
-      <img src={logoFS} alt="Logo"/>
     </div>
   );
 }
