@@ -1,6 +1,6 @@
 const Schema = require('mongoose').Schema;
 
-const JediSchema = new Schema({
+const MentorSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'user',
