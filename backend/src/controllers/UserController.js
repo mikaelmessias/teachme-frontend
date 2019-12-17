@@ -1,107 +1,135 @@
-const User = require('../models/User');
+const { User } = require('../models/index');
 const mail = require('../config/mail/mail');
 
 module.exports = {
   async show(req, res) {
-    try {
-      const { decoded } = req;
-      
-      const user = await User.findById(decoded.id);
+    const { decoded } = req;
 
-      if(!user) {
-        return res.status(404).json({
-          error: "User not found"
-        });
-      }
-
-      return res.json(user);
+    const response = {
+      user: {},
+      status: 200,
+      error: []
     }
-    catch (err) {
-      return res.status(400).json({
-        error: "Cant get user information"
+
+    await User.findById(decoded.id)
+      .then(user => {
+        if(!user) {
+          response.status = 404;
+          response.error.push("User not found");
+        }
+        else {
+          response.user = user;
+        }
+      })
+      .catch(err => {
+        console.log(err.message);
+
+        response.status = 400;
+        response.error.push(err.message);
+      })
+      .finally(_ => {
+        return res.status(response.status).json(response);
       });
-    }
   },
 
   async store(req, res) {
-    const { email } = req.body;
     const { filename } = req.file;
+    const body = { ...req.body, avatar: filename };
 
-    try {
-      if(await User.findOne({ email })) {
-        return res.status(400).json({
-          error: "User already exists"
-        });
-      }
-
-      const user = await User.create({
-        ...req.body,
-        avatar: filename
-      });
-
-      mail.send("welcome", user);
-
-      return res.status(201).json(user);
+    const response = {
+      user: {},
+      status: 201,
+      error: []
     }
-    catch (err) {
-      return res.status(400).json({
-        error: "User registration failed"
+
+    await User.create(body)
+      .then(user => {
+        mail.send("welcome", user);
+
+        response.user = user;
       })
-    }
+      .catch(err => {
+        console.log(err);
+
+        response.status = 400;
+        response.error.push(err.message);
+      })
+      .finally(_ => {
+        return res.status(response.status).json(response);
+      });
   },
 
   async update(req, res) {
     const { decoded } = req;
-    const filename = req.file ? req.file.filename : null;
+    const avatar = req.file ? req.file.filename : null;
+    const body = { ...req.body, avatar };
 
-    if(!await User.findOne({ _id: decoded.id })) {
-      return res.status(404).json({
-        error: "User not found"
-      })
+    const response = {
+      user: {},
+      status: 201,
+      error: []
     }
-    
-    if(filename) {
-      await User.updateOne({ _id: decoded.id }, {
-        ...req.body,
-        avatar: filename
-      });  
+
+    let query;
+
+    if (avatar) {
+      query = User.findByIdAndUpdate(decoded.id, body, { new: true })
     }
     else {
-      await User.updateOne({ _id: decoded.id }, req.body);
+      query = User.findByIdAndUpdate(decoded.id, req.body, { new: true })
     }
 
-    const user = await User.findOne({ _id: decoded.id });
+    await query.exec()
+      .then(user => {
+        if(!user) {
+          response.status = 404;
+          response.error.push("User not found");
+        }
+        else {
+          response.user = user;
+        }
+      })
+      .catch(err => {
+        console.log(err);
 
-    return res.status(201).json(user);
+        response.status = 400;
+        response.error.push(err.message);
+      })
+      .finally(_ => {
+        return res.status(response.status).json(response);
+      });
   },
 
   async authenticate(req, res) {
-    try {
-      const { email, password } = req.body;
+    const { email, password } = req.body;
 
-      const user = await User.findOne({ email });
-
-      if(!user) {
-        return res.status(400).json({
-          error: "User not found"
-        });
-      }
-
-      if(!(await user.compareHash(password))) {
-        return res.status(400).json({
-          error: "Invalid password"
-        });
-      }
-
-      return res.json({
-        user,
-        token: user.generateToken()
-      });
+    const response = {
+      user: {},
+      status: 200,
+      error: []
     }
-    catch (err) {
-      return res.status(400).json({
-        error: "User authentication failed"
+
+    await User.findOne({ email })
+      .then(async user => {
+        if(!user) {
+          response.status = 404;
+          response.error.push("User not found");
+        }
+        else if (!(await user.compareHash(password))) {
+          response.status = 400;
+          response.error.push("Invalid password");
+        }
+        else {
+          response.user = user;
+          response.token = user.generateToken();
+        }
       })
-    }
+      .catch(err => {
+        response.status = 400;
+        response.error.push(err.message);
+      })
+      .finally(_ => {
+        return res.status(response.status).json(response);
+      });
   }
 };
