@@ -8,7 +8,9 @@ const environment = require("./config/environment");
 
 mongoose.connect(environment.DATABASE, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false
 });
 
 const routes = require("./routes");
