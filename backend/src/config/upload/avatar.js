@@ -1,7 +1,7 @@
 const multer = require('multer');
 const path = require('path');
 
-const User = require('../../models/User');
+const { User } = require('../../models/index');
 
 module.exports = {
   storage: multer.diskStorage({

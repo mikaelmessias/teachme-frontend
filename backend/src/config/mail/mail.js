@@ -18,19 +18,21 @@ module.exports = {
     const to = user.email;
     let subject = '';
     let html = '';
-    
+
     if(type === 'welcome') {
       subject = "Bem vindo ao Teach.me!";
       html = template.welcome(user.name, user.email);
     }
 
     const mailOptions = { from, to, subject, html }
-  
+
     transporter.sendMail(mailOptions, function(error, info) {
       if(error) {
         console.log(error);
+        return false;
       } else {
         console.log('Email has been sent successfully: ' + info.response);
+        return true;
       }
     });
   }
