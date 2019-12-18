@@ -25,7 +25,7 @@ const BookingSchema = new Schema({
 
   jediId: {
     type: Schema.Types.ObjectId,
-    ref: 'jedi',
+    ref: 'mentor',
     required: true
   },
 

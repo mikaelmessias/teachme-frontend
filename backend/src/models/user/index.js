@@ -72,7 +72,7 @@ UserSchema.methods = {
   },
 
   generateToken() {
-    return jwt.sign({ id: this.id }, "secret", {
+    return jwt.sign({ id: this.id, access: this.access }, "secret", {
       expiresIn: 86400
     });
   }

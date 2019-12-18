@@ -33,7 +33,7 @@ routes.get('/search', MentorController.index);
 
 routes.get('/bookings', BookingController.index);
 routes.post('/bookings', BookingController.store);
-routes.put('/bookings/:booking', BookingController.update);
+routes.put('/bookings/:bookingId', BookingController.update);
 
 routes.put('/users', avatarUpload.single('avatar'), UserController.update);
 

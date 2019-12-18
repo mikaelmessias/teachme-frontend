@@ -1,111 +1,299 @@
-const Booking = require('../models/Booking');
-const User = require('../models/User');
-const Mentor = require('../models/Mentor');
-const Tech = require('../models/Tech');
+const { Booking, User, Mentor, Tech } = require('../models/index');
 
 module.exports = {
   async index(req, res) {
     const { decoded } = req;
-    
-    const user = await User.findById(decoded.id);
+    const { description } = req.query;
 
-    if(!user) {
-      return res.status(404).json({
-        error: "User does not exists"
-      });
-    }
-    
-    let bookings = null;
+    const userId = decoded.id;
+    const userAccess = decoded.access;
 
-    if(user.access === "PADAWAN") {
-      bookings = await Booking.find({ user: decoded.id })
-      .populate('tech')
-      .populate('user')
-      .populate({ path: 'mentor', populate: { path: 'user_id' } })
-      .populate('updatedBy');
-    }
-    else if(user.access === "MENTOR") {
-      const mentor = await Mentor.findOne({
-        user_id: decoded.id
-      });
-
-      bookings = await Booking.find({
-        mentor: mentor._id
-      }).populate('tech').populate('user').populate('updatedBy');
+    const response = {
+      bookings: [],
+      status: 200,
+      error: []
     }
 
-    return res.json(bookings);
+    let techId = null;
+    let user = null;
+    let filter = null;
+
+    await User.findById(userId)
+      .then(data => {
+        if(!data) {
+          response.status = 404;
+          response.error.push('User not found');
+        }
+        else {
+          user = data;
+        }
+      })
+      .catch(err => {
+        console.log(err);
+
+        response.status = 400;
+        response.error.push(err.message);
+      })
+      .finally();
+
+    if(user && (userAccess === 'JEDI')) {
+      await Mentor.findOne({ userId: userId })
+        .then(mentor => {
+          if(!mentor) {
+            response.status = 404;
+            response.error.push('Mentor not found');
+          }
+          else {
+            filter = { jediId: mentor._id };
+          }
+        })
+        .catch(err => {
+          console.log(err);
+
+          response.status = 400;
+          response.error.push(err.message);
+        })
+        .finally();
+    }
+    else if(user && (userAccess === 'PADAWAN')) {
+      filter = { padawanId: userId }
+    }
+
+    if(description) {
+      await Tech.findOne({ description })
+        .then(tech => {
+          if(tech) {
+            techId = tech._id;
+          }
+          else {
+            response.status = 404;
+            response.error.push('Tech not found');
+          }
+        })
+        .catch(err => {
+          console.log(err);
+
+          response.status = 400;
+          response.error.push(err.message);
+        })
+        .finally(_ => {
+          filter = {
+            ...filter,
+            techId
+          }
+        });
+    }
+
+    await Booking.find(filter)
+      .populate('techId')
+      .populate('padawanId')
+      .populate({
+        path: 'jediId',
+        populate: {
+          path: 'userId'
+        }
+      })
+      .populate('updatedBy')
+      .then(bookings => {
+        response.bookings = bookings;
+      })
+      .catch(err => {
+        console.log(err);
+
+        response.status = 400;
+        response.error.push(err.message);
+      })
+      .finally();
+
+    return res.status(response.status).json(response);
   },
 
   async store(req, res) {
-    const { decoded } = req;    
+    const { decoded } = req;
+    const { jediId, techId, date } = req.body
+    const padawanId = decoded.id;
 
-    if(!await User.findById(decoded.id)) {
-      return res.status(404).json({
-        error: 'User does not exists'
-      });
-    }
-
-    const mentor = await Mentor.findById(req.body.mentor);
-
-    if(!mentor) {
-      return res.status(404).json({
-        error: 'Mentor does not exists'
-      });
-    }
-
-    if(!await Tech.findById(req.body.tech)) {
-      return res.status(404).json({
-        error: 'Tech does not exists'
-      });
-    }
-
-    const { date } = req.body
-
-    if(await Booking.findOne({ date, mentor})) {
-      return res.status(400).json({
-        error: 'There is a booked attendance for the same date and mentor'
-      });
-    }
-
-    const booking = await Booking.create({
+    const body = {
       ...req.body,
-      ...req.params,
-      updatedBy: decoded.id,
-      user: decoded.id
-    });
+      updatedBy: padawanId,
+      padawanId
+    };
 
-    await booking.populate('tech').populate('user').populate('mentor').execPopulate();
-    await booking.populate('mentor.user_id').execPopulate();
+    const response = {
+      booking: {},
+      status: 201,
+      error: []
+    }
 
-    return res.json(booking);
+    let padawan = null;
+    let jedi = null;
+    let jediIsAvailable = true;
+    let tech = null;
+
+    await User.findById(padawanId)
+      .then(user => {
+        if (!user) {
+          response.status = 404;
+          response.error.push('User not found');
+        }
+        else {
+          padawan = user;
+        }
+      })
+      .catch(err => {
+        console.log(err);
+
+        response.status = 400;
+        response.error.push(err.message);
+      })
+      .finally();
+
+    await Mentor.findById(jediId)
+      .then(mentor => {
+        if(!mentor) {
+          response.status = 404;
+          response.error.push('Mentor not found');
+        }
+        else {
+          jedi = mentor;
+        }
+      })
+      .catch(err => {
+        console.log(err);
+
+        response.status = 400;
+        response.error.push(err.message);
+      })
+      .finally();
+
+    await Tech.findById(techId)
+      .then(data => {
+        if(!data) {
+          response.status = 404;
+          response.error.push('Tech not found');
+        }
+        else {
+          tech = data;
+        }
+      })
+      .catch(err => {
+        console.log(err);
+
+        response.status = 400;
+        response.error.push(err.message);
+      })
+      .finally();
+
+    if(jedi && padawan && tech) {
+      await Booking.findOne({ date, jediId })
+        .then(booking => {
+          if(booking) {
+            response.status = 400;
+            response.error.push('The jedi master is not available at this date');
+
+            jediIsAvailable = false;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+
+          response.status = 400;
+          response.error.push(err.message);
+        })
+        .finally();
+
+      if(jediIsAvailable) {
+        await Booking.create(body)
+          .then(async booking => {
+            await booking
+              .populate('techId')
+              .populate('padawanId')
+              .populate({
+                path: 'jediId',
+                populate: {
+                  path: 'userId'
+                }
+              })
+              .execPopulate();
+
+            response.booking = booking;
+          })
+          .catch(err => {
+            console.log(err);
+
+            response.status = 400;
+            response.error.push(err.message);
+          })
+          .finally();
+      }
+    }
+
+    return res.status(response.status).json(response);
   },
 
   async update(req, res) {
     const { decoded } = req;
-    const booking_id = req.params.booking;
+    const { bookingId } = req.params;
 
-    if(!await User.findById(decoded.id)) {
-      return res.status(404).json({
-        error: "User not found"
-      });
+    const userId = decoded.id;
+
+    const response = {
+      booking: {},
+      status: 201,
+      error: []
     }
 
-    if(!await Booking.findById(booking_id)) {
-      return res.status(404).json({
-        error: "Booking not found"
+    let user = null;
+
+    const filter = { _id: bookingId };
+    const update = { ...req.body, updatedBy: userId };
+    const options = { new: true };
+
+    await User.findById(userId)
+      .then(data => {
+        if(!data) {
+          response.status = 404;
+          response.error.push('User not found');
+        }
+        else {
+          user = data;
+        }
       })
+      .catch(err => {
+        console.log(err);
+
+        response.status = 400;
+        response.error.push(err.message);
+      })
+      .finally();
+
+    if(user) {
+      await Booking.findByIdAndUpdate(filter, update, options)
+      .populate('techId')
+      .populate('padawanId')
+      .populate({
+        path: 'jediId',
+        populate: {
+          path: 'userId'
+        }
+      })
+      .then(booking => {
+        if(!booking) {
+          response.status = 404;
+          response.error.push('Booking not found');
+        }
+        else {
+          response.booking = booking;
+        }
+      })
+      .catch(err => {
+        response.status - 400;
+        response.error.push(err.message);
+      })
+      .finally();
     }
 
-    const update = await Booking.updateOne({
-      _id: booking_id,
-    }, { 
-      ...req.body,
-      updatedBy: decoded.id
-    });
 
-    const booking = await Booking.findById(booking_id);
-
-    return res.json(booking);
+    return res.status(response.status).json(response);
   }
 }
