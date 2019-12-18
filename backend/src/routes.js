@@ -40,7 +40,7 @@ routes.put('/users', avatarUpload.single('avatar'), UserController.update);
 routes.get('/mentors', MentorController.show);
 
 routes.post('/mentors/skills', SkillController.store);
-routes.delete('/mentors/skills/:tech_id', SkillController.destroy);
+routes.delete('/mentors/skills/:techId', SkillController.destroy);
 
 routes.post('/mentors/availability', AvailabilityController.store);
 

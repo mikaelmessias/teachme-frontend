@@ -1,34 +1,57 @@
-const Mentor = require('../models/Mentor');
-const User = require('../models/User');
+const { Mentor, User } = require('../models/index');
 
 module.exports = {
   async store(req, res) {
     const { decoded } = req;
+    const { availableOn } = req.body;
 
-    if(!await User.findById(decoded.id)) {
-      return res.status(404).json({
-        error: "User not found"
-      });
+    const response = {
+      mentor: {},
+      status: 201,
+      error: []
     }
 
-    const mentor = await Mentor.findOne({ user_id: decoded.id });
+    let mentor = null;
 
-    if(!mentor) {
-      return res.status(403).json({
-        error: "Access not allowed for this user"
+    await Mentor.findOne({ userId: decoded.id })
+      .populate('userId')
+      .populate('skills.tech')
+      .then(data => {
+        if (!data) {
+          response.status = 404;
+          response.error.push('Mentor not found');
+        }
+        else {
+          mentor = data;
+        }
       })
-    }
+      .catch(err => {
+        console.log(err);
 
-    if(req.body.days)  {
-      mentor.availableAt = req.body.days;
-      mentor.save();
-    }
-    else {
-      return res.status(400).json({
-        error: "At least 1 argument expected"
+        response.status = 400;
+        response.error.push(err.message);
       })
+      .finally();
+
+    if(mentor) {
+      if(availableOn) {
+        if(availableOn.length)  {
+          mentor.availableOn = availableOn;
+          mentor.save();
+
+          response.mentor = mentor;
+        }
+        else {
+          response.status = 400;
+          response.error.push("Argument array is empty");
+        }
+      }
+      else {
+        response.status = 400;
+        response.error.push("Argument expected");
+      }
     }
 
-    return res.json(mentor);
+    return res.status(response.status).json(response);
   }
 }

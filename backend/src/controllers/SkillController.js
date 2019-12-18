@@ -1,70 +1,96 @@
-const Mentor = require('../models/Mentor');
-const User = require('../models/User');
-const Tech = require('../models/Tech');
+const { Mentor, User, Tech } = require('../models/index');
 
 module.exports = {
   async store(req, res) {
     const { decoded } = req;
+    const { techId } = req.body;
 
-    if(!await User.findById(decoded.id)) {
-      return res.status(404).json({
-        error: "User not found"
-      });
+    const response = {
+      mentor: {},
+      status: 201,
+      error: []
     }
 
-    const mentor = await Mentor.findOne({ user_id: decoded.id });
-
-    if(!mentor) {
-      return res.status(403).json({
-        error: "Access not allowed for this user"
-      })
-    }
-
-    const { tech } = req.body;
-
-    if(!await Tech.findOne({ _id: tech })) {
-      return res.status(404).json({
-        error: "The tech id is invalid"
-      });
-    }
-    
+    let mentor = null;
     let isDuplicate = false;
-    
-    mentor.skills.forEach((item, index) => {
-      if(item.tech == tech) {
-        isDuplicate = true;
-      }
-    });
 
-    if(isDuplicate) {
-      return res.status(400).json({
-        error: "Skill already registred"
-      });
+    await Mentor.findOne({ userId: decoded.id })
+      .populate('userId')
+      .populate('skills.tech')
+      .then(data => {
+        if (!data) {
+          response.status = 404;
+          response.error.push('Mentor not found');
+        }
+        else {
+          mentor = data;
+        }
+      })
+      .catch(err => {
+        console.log(err);
+
+        response.status = 400;
+        response.error.push(err.message);
+      })
+      .finally();
+
+    if (mentor) {
+      if (!await Tech.findById(techId)) {
+        response.status = 404;
+        response.error.push('The tech id is invalid');
+      }
+      else {
+        mentor.skills.forEach(skill => {
+          if (skill.techId._id == techId) {
+            isDuplicate = true;
+          }
+        });
+
+        if (isDuplicate) {
+          response.status = 400;
+          response.error.push('Skill already registred');
+        }
+        else {
+          mentor.skills.push(req.body);
+          mentor.save();
+
+          response.mentor = mentor;
+        }
+      }
     }
 
-    mentor.skills.push(req.body);
-    mentor.save();
-
-    await mentor.populate('user_id').populate('skills.tech').execPopulate();
-
-    return res.json(mentor);
+    return res.status(response.status).json(response);
   },
 
   async destroy(req, res) {
     const { decoded } = req;
+    const { techId } = req.params;
 
-    await Mentor.updateOne({ user_id: decoded.id }, {
-      "$pull": {
-        "skills": {
-          "tech": req.params.tech_id
-        }
-      }
-    }, { safe: true, multi:true }, (err, raw) => {});
+    const response = {
+      mentor: {},
+      status: 201,
+      error: []
+    }
 
-    const mentor = await Mentor.findOne({ user_id: decoded.id });
+    const filter = { userId: decoded.id }
+    const update = { $pull: {'skills': {'techId': techId }}};
+    const options = { new: true };
 
-    await mentor.populate('user_id').populate('skills.tech').execPopulate();
+    await Mentor.findOneAndUpdate(filter, update, options)
+      .populate('userId')
+      .populate('skills.techId')
+      .then(mentor => {
+        console.log(mentor);
+        response.mentor = mentor;
+      })
+      .catch(err => {
+        console.log(err);
 
-    return res.json(mentor);
+        response.status = 400;
+        response.error.push(err.message);
+      })
+      .finally(_ => {
+        return res.status(response.status).json(response);
+      });
   }
 }
