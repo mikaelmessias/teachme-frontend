@@ -9,7 +9,7 @@ const MentorSchema = new Schema({
   },
 
   skills: [{
-    tech: {
+    techId: {
       type: Schema.Types.ObjectId,
       ref: 'tech',
       required: true

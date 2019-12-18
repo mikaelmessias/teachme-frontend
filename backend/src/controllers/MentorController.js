@@ -25,7 +25,7 @@ module.exports = {
 
       await Tech.findOne({ description })
         .then(tech => {
-          if(!tech) {
+          if (!tech) {
             response.status = 404;
             response.error.push("Tech not found");
           }
@@ -39,12 +39,12 @@ module.exports = {
         })
         .finally();
 
-      if(techId) {
+      if (techId) {
         await Mentor.find()
-          .where('skills.tech')
+          .where('skills.techId')
           .equals(techId)
           .populate('userId')
-          .populate('skills.tech')
+          .populate('skills.techId')
           .then(mentors => {
             if (mentors.length === 0) {
               response.status = 404;
@@ -78,7 +78,7 @@ module.exports = {
 
     await Mentor.findOne({ userId: decoded.id })
       .populate('userId')
-      .populate('skills.tech')
+      .populate('skills.techId')
       .then(mentor => {
         if (!mentor) {
           response.status = 404;
@@ -125,11 +125,11 @@ module.exports = {
       })
       .finally();
 
-    if(userMentor) {
+    if (userMentor) {
       availableOn = availableOn.split(',');
       skills = skills.split(';').map(
         info => ({
-          tech: info.split(',')[0],
+          techId: info.split(',')[0],
           price: info.split(',')[1]
         })
       );
@@ -142,7 +142,7 @@ module.exports = {
         .then(async mentor => {
           mail.send("welcome", userMentor);
 
-          response.mentor = await mentor.populate('userId').populate('skills.tech').execPopulate();
+          response.mentor = await mentor.populate('userId').populate('skills.techId').execPopulate();
         })
         .catch(err => {
           console.log(err);

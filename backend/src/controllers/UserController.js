@@ -13,7 +13,7 @@ module.exports = {
 
     await User.findById(decoded.id)
       .then(user => {
-        if(!user) {
+        if (!user) {
           response.status = 404;
           response.error.push("User not found");
         }
@@ -81,7 +81,7 @@ module.exports = {
 
     await query.exec()
       .then(user => {
-        if(!user) {
+        if (!user) {
           response.status = 404;
           response.error.push("User not found");
         }
@@ -111,7 +111,7 @@ module.exports = {
 
     await User.findOne({ email })
       .then(async user => {
-        if(!user) {
+        if (!user) {
           response.status = 404;
           response.error.push("User not found");
         }

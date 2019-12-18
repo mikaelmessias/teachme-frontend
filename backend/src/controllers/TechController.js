@@ -12,7 +12,7 @@ module.exports = {
 
     let query;
 
-    if(description) {
+    if (description) {
       query = Tech.findOne({ description });
     }
     else {
