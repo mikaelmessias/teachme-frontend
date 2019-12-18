@@ -20,7 +20,7 @@ const MentorSchema = new Schema({
     }
   }],
 
-  availableAt: [{
+  availableOn: [{
     type: String,
     enum: [
       'MONDAY',

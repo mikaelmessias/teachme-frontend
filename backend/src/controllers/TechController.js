@@ -1,34 +1,64 @@
-const Tech = require('../models/Tech');
+const { Tech } = require('../models/index');
 
 module.exports = {
   async index(req, res) {
-    const { tech } = req.query; 
+    const { description } = req.params;
 
-    if(tech) {
-      return res.json(await Tech.find({ description: tech }));
+    const response = {
+      data: [],
+      status: 200,
+      error: []
+    }
+
+    let query;
+
+    if(description) {
+      query = Tech.findOne({ description });
     }
     else {
-      return res.json(await Tech.find());
+      query = Tech.find();
     }
+
+    await query.exec()
+      .then(tech => {
+        response.data = tech;
+        console.log(tech);
+      })
+      .catch(err => {
+        console.log(err);
+
+        response.status(400);
+        response.error.push(err.message);
+      })
+      .finally(_ => {
+        return res.status(response.status).json(response);
+      })
   },
 
   async store(req, res) {
     const { description } = req.body;
     const { filename } = req.file;
 
-    let tech = await Tech.findOne({ description });
+    const body = { description, thumbnail: filename };
 
-    if(tech) {
-      return res.status(400).json({
-        error: "Tech already registered"
-      })
+    const response = {
+      data: {},
+      status: 201,
+      error: []
     }
 
-    tech = await Tech.create({
-      description,
-      thumbnail: filename
-    });
+    await Tech.create(body)
+      .then(tech => {
+        response.data = tech;
+      })
+      .catch(err => {
+        console.log(err.message);
 
-    return res.json(tech);
+        response.status = 400;
+        response.error.push(err.message);
+      })
+      .finally(_ => {
+        return res.status(response.status).json(response);
+      });
   }
 };
