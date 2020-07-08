@@ -169,7 +169,7 @@ export default function MentorForm(props) {
         
         <div id="secondRow" className="row">
           <h1>
-            Entre para o jogo com os melhores mentores
+            Seja um de nossos incríveis mentores
           </h1>
         </div>
       </header>
