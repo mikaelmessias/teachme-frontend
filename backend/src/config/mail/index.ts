@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import environment from '../environment';
+import environment from '../dotenv';
 import * as template from './templates';
 
 interface User {

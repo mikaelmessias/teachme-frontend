@@ -1,13 +1,13 @@
 import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
-import environment from './config/environment';
+import environment from './config/dotenv';
 import { pathResolve } from './config/utils';
 import routes from './routes';
 
 const app = express();
 
-mongoose.connect(environment.DATABASE, {
+mongoose.connect(environment.DATABASE_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
