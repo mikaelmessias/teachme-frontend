@@ -1,9 +1,9 @@
 import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
-import environment from './config/dotenv';
-import { pathResolve } from './config/utils';
 import routes from './routes';
+import environment from './utils/dotenv';
+import { pathResolve } from './utils/functions';
 
 const app = express();
 

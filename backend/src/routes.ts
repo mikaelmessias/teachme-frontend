@@ -1,12 +1,12 @@
 import express from 'express';
 import multer from 'multer';
-import * as uploadConfig from './config/multer';
 import AvailabilityController from './controllers/AvailabilityController';
 import BookingController from './controllers/BookingController';
 import MentorController from './controllers/MentorController';
 import SkillController from './controllers/SkillController';
 import TechController from './controllers/TechController';
 import UserController from './controllers/UserController';
+import * as uploadConfig from './utils/multer';
 // import authMiddleware from './middlewares/auth';
 
 // Roteador do Express

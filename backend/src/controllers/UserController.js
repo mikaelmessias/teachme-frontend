@@ -1,24 +1,23 @@
 const User = require('../models/User');
-const mail = require('../config/mail/mail');
+const mail = require('../utils/mail');
 
 module.exports = {
   async show(req, res) {
     try {
       const { decoded } = req;
-      
+
       const user = await User.findById(decoded.id);
 
-      if(!user) {
+      if (!user) {
         return res.status(404).json({
-          error: "User not found"
+          error: 'User not found',
         });
       }
 
       return res.json(user);
-    }
-    catch (err) {
+    } catch (err) {
       return res.status(400).json({
-        error: "Cant get user information"
+        error: 'Cant get user information',
       });
     }
   },
@@ -28,25 +27,24 @@ module.exports = {
     const { filename } = req.file;
 
     try {
-      if(await User.findOne({ email })) {
+      if (await User.findOne({ email })) {
         return res.status(400).json({
-          error: "User already exists"
+          error: 'User already exists',
         });
       }
 
       const user = await User.create({
         ...req.body,
-        avatar: filename
+        avatar: filename,
       });
 
-      mail.send("welcome", user);
+      mail.send('welcome', user);
 
       return res.status(201).json(user);
-    }
-    catch (err) {
+    } catch (err) {
       return res.status(400).json({
-        error: "User registration failed"
-      })
+        error: 'User registration failed',
+      });
     }
   },
 
@@ -54,19 +52,18 @@ module.exports = {
     const { decoded } = req;
     const filename = req.file ? req.file.filename : null;
 
-    if(!await User.findOne({ _id: decoded.id })) {
+    if (!await User.findOne({ _id: decoded.id })) {
       return res.status(404).json({
-        error: "User not found"
-      })
+        error: 'User not found',
+      });
     }
-    
-    if(filename) {
+
+    if (filename) {
       await User.updateOne({ _id: decoded.id }, {
         ...req.body,
-        avatar: filename
-      });  
-    }
-    else {
+        avatar: filename,
+      });
+    } else {
       await User.updateOne({ _id: decoded.id }, req.body);
     }
 
@@ -81,27 +78,26 @@ module.exports = {
 
       const user = await User.findOne({ email });
 
-      if(!user) {
+      if (!user) {
         return res.status(400).json({
-          error: "User not found"
+          error: 'User not found',
         });
       }
 
-      if(!(await user.compareHash(password))) {
+      if (!(await user.compareHash(password))) {
         return res.status(400).json({
-          error: "Invalid password"
+          error: 'Invalid password',
         });
       }
 
       return res.json({
         user,
-        token: user.generateToken()
+        token: user.generateToken(),
+      });
+    } catch (err) {
+      return res.status(400).json({
+        error: 'User authentication failed',
       });
     }
-    catch (err) {
-      return res.status(400).json({
-        error: "User authentication failed"
-      })
-    }
-  }
+  },
 };
