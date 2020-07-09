@@ -5,7 +5,7 @@ import User from '../models/User';
 
 export const avatar: multer.Options = ({
   storage: multer.diskStorage({
-    destination: path.resolve(__dirname, '..', '..', '..', 'uploads', 'avatar'),
+    destination: path.resolve(__dirname, '..', '..', 'uploads', 'avatar'),
 
     filename: async (req, file, cb) => {
       const ext = path.extname(file.originalname);
@@ -23,9 +23,9 @@ export const avatar: multer.Options = ({
   }),
 });
 
-export const thumbnail: multer.Options = ({
+export const techLogo: multer.Options = ({
   storage: multer.diskStorage({
-    destination: path.resolve(__dirname, '..', '..', '..', 'uploads', 'thumbnail'),
+    destination: path.resolve(__dirname, '..', '..', 'uploads', 'techLogo'),
 
     filename: async (req, file, cb) => {
       const ext = path.extname(file.originalname);
@@ -34,7 +34,7 @@ export const thumbnail: multer.Options = ({
       const tech = await Tech.findOne({ description: req.body.description });
 
       if (tech) {
-        cb(null, tech.thumbnail);
+        cb(null, tech.logo);
         return;
       }
 

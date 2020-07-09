@@ -2,14 +2,13 @@ const Tech = require('../models/Tech');
 
 module.exports = {
   async index(req, res) {
-    const { tech } = req.query; 
+    const { tech } = req.query;
 
-    if(tech) {
+    if (tech) {
       return res.json(await Tech.find({ description: tech }));
     }
-    else {
-      return res.json(await Tech.find());
-    }
+
+    return res.json(await Tech.find());
   },
 
   async store(req, res) {
@@ -18,17 +17,17 @@ module.exports = {
 
     let tech = await Tech.findOne({ description });
 
-    if(tech) {
+    if (tech) {
       return res.status(400).json({
-        error: "Tech already registered"
-      })
+        error: 'Tech already registered',
+      });
     }
 
     tech = await Tech.create({
       description,
-      thumbnail: filename
+      logo: filename,
     });
 
     return res.json(tech);
-  }
+  },
 };

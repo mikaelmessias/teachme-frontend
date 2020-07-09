@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(routes);
 
 app.use('/files/avatar', pathResolve(__dirname, '..', 'uploads', 'avatar'));
-app.use('/files/thumbnail', pathResolve(__dirname, '..', 'uploads', 'thumbnail'));
+app.use('/files/techLogo', pathResolve(__dirname, '..', 'uploads', 'techLogo'));
 
 app.listen(environment.PORT, () => {
   console.clear();

@@ -11,11 +11,11 @@ import UserController from './controllers/UserController';
 
 // Roteador do Express
 const routes = express.Router();
-const thumbUpload = multer(uploadConfig.thumbnail);
+const techLogoUpload = multer(uploadConfig.techLogo);
 const avatarUpload = multer(uploadConfig.avatar);
 
 routes.get('/techs', TechController.index);
-routes.post('/techs', thumbUpload.single('thumbnail'), TechController.store);
+routes.post('/techs', techLogoUpload.single('logo'), TechController.store);
 
 routes.post('/users', avatarUpload.single('avatar'), UserController.store);
 routes.post('/mentors', avatarUpload.single('avatar'), MentorController.store);
