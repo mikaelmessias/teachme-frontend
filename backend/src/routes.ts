@@ -1,22 +1,18 @@
-const express = require('express');
-const multer = require('multer');
-
-const authMiddleware = require('./middlewares/auth');
-
-const thumbUploadConfig = require('./config/upload/thumb');
-const avatarUploadConfig = require('./config/upload/avatar');
-
-const MentorController = require('./controllers/MentorController');
-const SkillController = require('./controllers/SkillController');
-const AvailabilityController = require('./controllers/AvailabilityController');
-const TechController = require('./controllers/TechController');
-const UserController = require('./controllers/UserController');
-const BookingController = require('./controllers/BookingController');
+import express from 'express';
+import multer from 'multer';
+import * as uploadConfig from './config/multer';
+import AvailabilityController from './controllers/AvailabilityController';
+import BookingController from './controllers/BookingController';
+import MentorController from './controllers/MentorController';
+import SkillController from './controllers/SkillController';
+import TechController from './controllers/TechController';
+import UserController from './controllers/UserController';
+// import authMiddleware from './middlewares/auth';
 
 // Roteador do Express
 const routes = express.Router();
-const thumbUpload = multer(thumbUploadConfig);
-const avatarUpload = multer(avatarUploadConfig);
+const thumbUpload = multer(uploadConfig.thumbnail);
+const avatarUpload = multer(uploadConfig.avatar);
 
 routes.get('/techs', TechController.index);
 routes.post('/techs', thumbUpload.single('thumbnail'), TechController.store);
@@ -26,7 +22,7 @@ routes.post('/mentors', avatarUpload.single('avatar'), MentorController.store);
 
 routes.post('/authenticate', UserController.authenticate);
 
-routes.use(authMiddleware);
+// routes.use(authMiddleware);
 
 routes.get('/users', UserController.show);
 routes.get('/search', MentorController.index);
@@ -44,4 +40,4 @@ routes.delete('/mentors/skills/:tech_id', SkillController.destroy);
 
 routes.post('/mentors/availability', AvailabilityController.store);
 
-module.exports = routes;
+export default routes;
