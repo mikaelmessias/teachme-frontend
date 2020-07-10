@@ -1,3 +1,4 @@
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
@@ -16,6 +17,7 @@ mongoose.connect(environment.DATABASE_URL, {
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 app.use(routes);
 
 app.use('/files/avatar', pathResolve(__dirname, '..', 'uploads', 'avatar'));

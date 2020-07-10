@@ -1,27 +1,43 @@
+import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { JWTSignedRequest, JWTDecoded } from '../utils/interfaces';
+import UserModel from '../models/User';
+import enviroment from '../utils/dotenv';
+import { JWTRequest, JWTPayload } from '../utils/interfaces/jwt';
 
-// eslint-disable-next-line consistent-return
-const auth = async ({ request, response, next }: JWTSignedRequest): Promise<any> => {
-  const { authorization } = request.headers;
+const authMiddleware = async (
+  _request: Request,
+  response: Response,
+  next: NextFunction,
+): Promise<void> => {
+  const { cookies } = _request;
+  const request = _request as JWTRequest;
+  if (cookies && cookies.Authorization) {
+    const secret = enviroment.JWT_SECRET;
+    console.log('aqui');
 
-  if (!authorization) {
-    return response.status(400).send({
-      error: 'No token provided',
+    try {
+      const { _id: id } = jwt.verify(cookies.Authorization, secret) as JWTPayload;
+      const user = await UserModel.findById(id).select('-password');
+
+      if (user) {
+        request.user = user;
+        next();
+      } else {
+        response.status(400).json({
+          message: 'Invalid token',
+        });
+      }
+    } catch (error) {
+      const { name, message, ...err } = error;
+
+      response.status(400).json({ name, message, ...err });
+    }
+  } else {
+    response.status(403).json({
+      name: 'Forbbiden',
+      message: 'Only logged users can access this area',
     });
   }
-
-  // eslint-disable-next-line consistent-return
-  jwt.verify(authorization, 'secret', (error, decoded) => {
-    if (!error) {
-      request.decoded = decoded as JWTDecoded;
-      next();
-    } else {
-      return response.status(401).send({
-        error: 'Token invalid',
-      });
-    }
-  });
 };
 
-export default auth;
+export default authMiddleware;

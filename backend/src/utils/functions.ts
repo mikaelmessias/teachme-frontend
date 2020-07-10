@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import express, { Handler } from 'express';
 import path from 'path';
 

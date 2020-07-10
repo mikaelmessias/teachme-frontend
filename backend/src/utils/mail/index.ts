@@ -7,7 +7,7 @@ interface User {
   name: string;
 }
 
-const send = (type: string, user: User): void => {
+export const send = (type: string, user: User): void => {
   const transporter = nodemailer.createTransport({
     host: 'smtp.ethereal.email',
     port: 587,
@@ -40,5 +40,3 @@ const send = (type: string, user: User): void => {
     }
   });
 };
-
-export default send;

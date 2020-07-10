@@ -1,10 +1,9 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-underscore-dangle */
 import {
-  pre, prop, modelOptions, DocumentType, getModelForClass,
+  pre, prop, modelOptions, getModelForClass,
 } from '@typegoose/typegoose';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import { UserType } from '../utils/enum';
 
 @pre<User>('save', async function hashPassword(next) {
@@ -21,7 +20,7 @@ import { UserType } from '../utils/enum';
     id: false,
   },
 })
-class User {
+export class User {
   @prop({ required: true })
   public name!: string;
 
@@ -49,18 +48,12 @@ class User {
   @prop({ enum: UserType, type: String, default: 'PADAWAN' })
   public access!: UserType;
 
-  public get avatar_url() {
+  public get avatar_url(): string {
     return `http://localhost:3333/files/avatar/${this.avatar}`;
   };
 
-  public compareHash(hash: string) {
-    return bcrypt.compare(hash, this.password);
-  };
-
-  public generateToken(this: DocumentType<User>) {
-    return jwt.sign({ id: this._id }, 'secret', {
-      expiresIn: '1h',
-    });
+  public compareHash(password: string): Promise<boolean> {
+    return bcrypt.compare(password, this.password);
   };
 };
 
