@@ -16,7 +16,7 @@ O Teach.me é uma plataforma desenvolvida com o objetivo de unir estudantes de c
 
 ``git clone https://github.com/mikaelmessias/teachme.git``
 
-### Instale as dependências 
+### Instale as dependências
 
 ``yarn install``
 
@@ -24,6 +24,12 @@ O Teach.me é uma plataforma desenvolvida com o objetivo de unir estudantes de c
 DATABASE={string de conexão com o MongoDB}
 
 PORT={porta onde será executada a instância do servidor backend}
+
+FROM_EMAIL={endereço utilizado como destinatário em emails enviados ao usuário}
+
+FROM_PASSWORD={senha do endereço de email}
+
+JWT_TOKEN={chave utilizada para criptografar/descriptografar as senhas dos usuário}
 
 ### Inicie o servidor dentro da pasta backend/
 ``yarn dev``
