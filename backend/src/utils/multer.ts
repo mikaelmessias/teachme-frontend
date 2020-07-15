@@ -31,7 +31,7 @@ export const techLogo: multer.Options = ({
       const ext = path.extname(file.originalname);
       const name = path.basename(file.originalname, ext);
 
-      const tech = await Tech.findOne({ description: req.body.description });
+      const tech = await Tech.findOne({ name: req.body.name });
 
       if (tech) {
         cb(null, tech.logo);

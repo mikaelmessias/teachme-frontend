@@ -127,5 +127,5 @@ dist
 .history/
 
 # Uploads directory rules
-backend/uploads/*/*
-!backend/uploads/*/.gitkeep
+backend/uploads/avatar/*
+!backend/uploads/avatar/.gitkeep

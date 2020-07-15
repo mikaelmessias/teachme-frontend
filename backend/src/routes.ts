@@ -10,14 +10,16 @@ import authMiddleware from './middlewares/auth';
 import * as uploadConfig from './utils/multer';
 
 const userController = new UserController();
+const techController = new TechController();
 
 // Roteador do Express
 const routes = express.Router();
-const techLogoUpload = multer(uploadConfig.techLogo);
+// const techLogoUpload = multer(uploadConfig.techLogo);
 const avatarUpload = multer(uploadConfig.avatar);
 
-routes.get('/techs', TechController.index);
-routes.post('/techs', techLogoUpload.single('logo'), TechController.store);
+routes.get('/techs', techController.index);
+routes.post('/techs', techController.seed);
+routes.delete('/techs', techController.destroy);
 
 routes.post('/user', avatarUpload.single('avatar'), userController.store);
 routes.post('/mentor', avatarUpload.single('avatar'), MentorController.store);
