@@ -11,6 +11,7 @@ import * as uploadConfig from './utils/multer';
 
 const userController = new UserController();
 const techController = new TechController();
+const mentorController = new MentorController();
 
 // Roteador do Express
 const routes = express.Router();
@@ -22,7 +23,7 @@ routes.post('/techs', techController.seed);
 routes.delete('/techs', techController.destroy);
 
 routes.post('/user', avatarUpload.single('avatar'), userController.store);
-routes.post('/mentor', avatarUpload.single('avatar'), MentorController.store);
+routes.post('/mentor', avatarUpload.single('avatar'), mentorController.store);
 
 routes.post('/authenticate', userController.authenticate);
 
@@ -30,7 +31,7 @@ routes.use(authMiddleware);
 
 routes.get('/users', userController.index);
 routes.get('/user', userController.show);
-routes.get('/search', MentorController.index);
+// routes.get('/search', mentorController.index);
 
 routes.get('/bookings', BookingController.index);
 routes.post('/booking', BookingController.store);
@@ -38,7 +39,7 @@ routes.put('/booking/:bookingId', BookingController.update);
 
 routes.put('/user', avatarUpload.single('avatar'), userController.update);
 
-routes.get('/mentor', MentorController.show);
+// routes.get('/mentor', mentorController.show);
 
 routes.post('/mentor/skills', SkillController.store);
 routes.delete('/mentor/skills/:tech_id', SkillController.destroy);

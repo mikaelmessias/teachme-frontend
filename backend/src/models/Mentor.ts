@@ -1,5 +1,5 @@
 import {
-  getModelForClass, modelOptions, prop, Ref,
+  getModelForClass, modelOptions, prop, Ref, mongoose,
 } from '@typegoose/typegoose';
 import { Day } from '../utils/enum';
 import { Skill } from './Skill';
@@ -13,14 +13,14 @@ import { User } from './User';
   },
 })
 export class Mentor {
-  @prop({ required: true, ref: User, type: String })
+  @prop({ required: true, ref: User })
   public userId!: Ref<User>;
 
   @prop({ ref: Skill })
-  public skills!: Ref<Skill>[];
+  public skills!: Skill[];
 
   @prop({ required: true, enum: Day, type: String })
-  public availableAt!: Day[];
+  public availableDays!: Day[];
 };
 
 const MentorModel = getModelForClass(Mentor);
