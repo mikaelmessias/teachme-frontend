@@ -1,0 +1,4 @@
+DATABASE=mongodb+srv://mikael:fimika13@mntbk-qboul.mongodb.net/test?retryWrites=true&w=majority
+PORT=3333
+FROM_EMAIL=annamae.fahey72@ethereal.email
+FROM_PASSWORD=sSN3kTv45BC6MzZdEH

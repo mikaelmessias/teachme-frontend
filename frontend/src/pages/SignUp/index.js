@@ -7,15 +7,15 @@ import logo from '../../assets/png/logo.png';
 import iconCadastro from '../../assets/svg/cadastro-sm.svg';
 import iconLogin from '../../assets/svg/login-md.svg';
 
-export default function SignUp ({ history }) {
+export default function SignUp({ history }) {
   const token = localStorage.getItem('token');
   const access = localStorage.getItem('access');
 
-  if(token) {
-    if(access === "PADAWAN") {
+  if (token) {
+    if (access === "PADAWAN") {
       history.push('/dashboard/user');
     }
-    else if(access === "MENTOR") {
+    else if (access === "MENTOR") {
       history.push('/dashboard/mentor');
     }
   }
@@ -26,12 +26,12 @@ export default function SignUp ({ history }) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    if(role === "PADAWAN") {
+    if (role === "PADAWAN") {
       history.push('/signup/users', { email, role });
     }
-    else if(role === "MENTOR") {
+    else if (role === "MENTOR") {
       const res = await api.get('/techs');
-      
+
       history.push('/signup/mentors', { email, role, techs: res.data });
     }
   }
@@ -41,28 +41,28 @@ export default function SignUp ({ history }) {
       <div id="signUpForm">
         <div className="row">
           <header className="header">
-            <img src={logo} alt="Logo"/>
+            <img src={logo} alt="Logo" />
           </header>
 
           <section className="content">
             <figure>
-              <img src={iconCadastro} alt="Ícone de cadastro"/>
+              <img src={iconCadastro} alt="Ícone de cadastro" />
             </figure>
 
-            <h1>Bem vindo, jovem!</h1>
+            <h1>Bem vindo!</h1>
 
             <p>
-              Acesso todos os nossos <br/>
+              Acesso todos os nossos <br />
               <strong>recursos fantásticos</strong> em poucos cliques
             </p>
 
-            <form className="form" onSubmit={ handleSubmit }>
+            <form className="form" onSubmit={handleSubmit}>
               <div className="inputEmail" data-placeholder="Digite seu melhor email">
                 <input
                   id="email"
                   type="email"
-                  value={ email }
-                  onChange= {
+                  value={email}
+                  onChange={
                     event => setEmail(event.target.value)
                   }
                   required
@@ -85,11 +85,11 @@ export default function SignUp ({ history }) {
                       type="radio"
                       name="userType"
                       value="MENTOR"
-                      onClick = {
+                      onClick={
                         () => setRole('MENTOR')
                       }
                     />
-                    <span className="checkmark"/>
+                    <span className="checkmark" />
                   </label>
 
                   <label className="radio-group">Preciso de ajuda
@@ -97,19 +97,19 @@ export default function SignUp ({ history }) {
                       type="radio"
                       name="userType"
                       value="PADAWAN"
-                      onClick = {
+                      onClick={
                         () => setRole('PADAWAN')
                       }
                       required
                     />
-                    <span className="checkmark"/>
+                    <span className="checkmark" />
                   </label>
                 </div>
               </div>
-            
+
               <div className="inputSubmit">
-                  <input type="submit" value="Continuar"/>
-                </div>
+                <input type="submit" value="Continuar" />
+              </div>
             </form>
           </section>
         </div>
@@ -118,14 +118,14 @@ export default function SignUp ({ history }) {
       <aside id="loginMessage">
         <div className="row">
           <h2>Já tem uma conta?</h2>
-          
+
           <p>
-            Que tal colocar seus estudos em dia? <br/>
+            Que tal colocar seus estudos em dia? <br />
             Netflix pode esperar &lt;3
           </p>
 
           <figure>
-            <img src={iconLogin} alt="Ícone de login"/>
+            <img src={iconLogin} alt="Ícone de login" />
           </figure>
 
           <a href="/login">Entrar</a>
